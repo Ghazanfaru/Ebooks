@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "340043362765",
+    "firebase_url": "https://ebooks-7be44-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "ebooks-7be44",
+    "storage_bucket": "ebooks-7be44.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340043362765:android:54396638656a3d2c789484",
+        "android_client_info": {
+          "package_name": "com.example.ebooks_up"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340043362765-i853tb1ll9dfug4ukqgo9p745t2oc84r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClQa6zMPhvxG0L1YZgvQjThInwfDmGxiM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340043362765-i853tb1ll9dfug4ukqgo9p745t2oc84r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "340043362765-c8hj31km6vc1pqoa0aodq2bh3d0rrit5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ebooksUp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
