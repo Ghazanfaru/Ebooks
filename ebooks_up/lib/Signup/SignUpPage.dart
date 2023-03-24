@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../Login/LoginPage.dart';
 import '../NavPages/HomePage/Home.dart';
+import 'package:ebooks_up/Controller/UserController.dart';
+import 'package:ebooks_up/model/UserModel.dart';
 class SignUpPage extends StatefulWidget {
   static const String id='SignUpPage';
   @override
@@ -8,6 +10,8 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  UserController? user;
+ String? email,pass,name,cPass;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +39,9 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 const SizedBox(height: 45,),
                 TextField(
+                  onChanged: (value){
+                    name=value.toString();
+                  },
                   cursorColor: Color(0xff005C29),
                   maxLength: 30,
                   toolbarOptions:const ToolbarOptions(
@@ -63,6 +70,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 TextField(
+                  onChanged: (value){
+                    email=value.toString();
+                  },
                   cursorColor: Color(0xff005C29),
                   keyboardType: TextInputType.emailAddress,
                   maxLength: 30,
@@ -94,6 +104,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 TextField(
                   cursorColor: Color(0xff005C29),
                   obscureText: true,
+                  onChanged: (value){
+                    pass=value.toString();
+                  },
                   keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                     hintText: 'Password',
@@ -120,6 +133,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 const SizedBox(height: 15,),
                 TextField(
+                  onChanged: (value){
+                    cPass=value.toString();
+                  },
                   cursorColor: Color(0xff005C29),
                   obscureText: true,
                   toolbarOptions:const ToolbarOptions(
@@ -159,7 +175,17 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: TextButton(
                       child:const Text('Sign Up',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400),),
                       onPressed: () {
-                        Navigator.pushNamed(context, Home.id);
+                        if(pass==cPass) {
+                          UserModel? userModel = UserModel(email: email, pass: pass, Uname: name);
+                          user!.register(userModel);
+                          Navigator.pushNamed(context, Home.id);
+                        }
+                        else showDialog(context: context, builder: (context)=>AlertDialog(
+                          content: Text("Password didn't match"),
+                          actions: [
+                            ElevatedButton(onPressed: ()=>Navigator.pushNamed(context, SignUpPage.id), child: Text("Try Again"))
+                          ],
+                        ));
                       },
                     ),
                   ),
