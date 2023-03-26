@@ -1,3 +1,4 @@
+import 'package:ebooks_up/Login/ResetPage.dart';
 import 'package:flutter/material.dart';
 import 'Login/LoginPage.dart';
 import 'NavPages/Accountpage/AccountInfo.dart';
@@ -10,6 +11,7 @@ import 'NavPages/HomePage/Home.dart';
 import 'Signup/SignUpPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:ebooks_up/Login/ResetPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
       ),
      initialRoute: LoginPage.id,
       routes: {
+        ResetPage.id:(context) =>ResetPage(),
         LoginPage.id: (context) =>LoginPage(),
         SignUpPage.id: (context) =>SignUpPage(),
         Home.id: (context) => Home(),

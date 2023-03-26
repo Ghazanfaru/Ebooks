@@ -10,7 +10,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  UserController? user;
+  UserController user=UserController();
  String? email,pass,name,cPass;
   @override
   Widget build(BuildContext context) {
@@ -175,9 +175,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: TextButton(
                       child:const Text('Sign Up',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400),),
                       onPressed: () {
+                        print(email);
                         if(pass==cPass) {
-                          UserModel? userModel = UserModel(email: email, pass: pass, Uname: name);
-                          user!.register(userModel);
+                          UserModel userModel =new UserModel(email: email, pass: pass, Uname: name);
+                          user.register(userModel);
+
                           Navigator.pushNamed(context, Home.id);
                         }
                         else showDialog(context: context, builder: (context)=>AlertDialog(

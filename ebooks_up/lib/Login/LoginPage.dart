@@ -1,8 +1,10 @@
 import 'dart:ui';
+import 'package:ebooks_up/Login/ResetPage.dart';
 import 'package:flutter/material.dart';
-
+import 'package:ebooks_up/Controller/UserController.dart';
 import '../NavPages/HomePage/Home.dart';
 import '../Signup/SignUpPage.dart';
+import 'package:ebooks_up/model/UserModel.dart';
 class LoginPage extends StatefulWidget {
   @override
   static const String id='LoginPage';
@@ -11,6 +13,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool IsSelected=false;
+  UserModel userModel=UserModel();
+  UserController controller=UserController();
+  String email="",pass="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +43,11 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const SizedBox(height: 80,),
                 TextField(
+                  onChanged: (value){
+                    setState(() {
+                      email=value.toString();
+                    });
+                  },
                   keyboardType: TextInputType.emailAddress,
                   maxLength: 30,
                   toolbarOptions:const ToolbarOptions(
@@ -66,6 +76,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 TextField(
+                  onChanged: (value){
+                    setState(() {
+                      pass=value.toString();
+                    });
+                  },
                   keyboardType: TextInputType.emailAddress,
                   obscureText: true,
                   decoration: InputDecoration(
@@ -101,10 +116,12 @@ class _LoginPageState extends State<LoginPage> {
                     }),
                     const Text('Remember me',style: TextStyle(color: Color(0xff005C29),fontSize: 15),),
                     const SizedBox(width: 50,),
-                    const TextButton(
-                      onPressed: null,
+                     TextButton(
+                      onPressed: (){
+                       Navigator.pushNamed(context, ResetPage.id);
+                      },
                       child: Text(
-                        'Forgot Password',
+                        'Forgot Password?',
                         style: TextStyle(
                             color:Color(0xff005C29), fontWeight: FontWeight.w400),
                       ),
@@ -123,7 +140,11 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextButton(
                       child:const Text('Sign In',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400),),
                       onPressed: () {
-                        Navigator.pushNamed(context,Home.id);
+                       setState(() {
+                         userModel.email=email;
+                         userModel.pass=pass;
+                       });
+                       controller.login(userModel,context);
                       },
                     ),
                   ),
