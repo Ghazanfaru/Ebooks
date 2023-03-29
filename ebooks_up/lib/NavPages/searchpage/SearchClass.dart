@@ -1,8 +1,17 @@
+import 'package:ebooks_up/NavPages/searchpage/SearchedPage.dart';
 import 'package:flutter/material.dart';
-class SearchClass extends StatelessWidget {
-  const SearchClass({Key? key, required this.interst, required this.onpressed}) : super(key: key);
-final String interst;
-final VoidCallback onpressed;
+
+class SearchClass extends StatefulWidget {
+  String category;
+  SearchClass({Key? key, required this.category, }) : super(key: key);
+
+  @override
+  State<SearchClass> createState() => _SearchClassState();
+}
+
+class _SearchClassState extends State<SearchClass> {
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -10,7 +19,10 @@ final VoidCallback onpressed;
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextButton(child:Text(interst,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w400,fontSize: 18),),onPressed:onpressed,),
+          TextButton(child:Text(widget.category,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w400,fontSize: 18),),
+            onPressed:(){
+            Navigator.push(context,new MaterialPageRoute(builder: (context)=> new Searched(category: widget.category,)));
+          },),
           Divider(height: 2,thickness: 2,),
         ],
       ),

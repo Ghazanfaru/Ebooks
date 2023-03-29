@@ -11,6 +11,7 @@ class _AccountInfoState extends State<UpdateProfile> {
   int btntitle=0;
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffE2E5DE),
      appBar:  AppBar(
        shape: RoundedRectangleBorder(
            borderRadius: BorderRadius.vertical(
@@ -23,25 +24,26 @@ class _AccountInfoState extends State<UpdateProfile> {
        title: const Text(
          "Update Profile",
          style: TextStyle(
-             color: Colors.white, fontSize: 25, fontWeight: FontWeight.w400),
+             color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400),
        ),
      ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children:[
               SizedBox(height: 30,),
-              Text('Update Name:',style: TextStyle(color: Colors.black54,fontWeight:FontWeight.bold,fontSize: 22),),
+              Text('Update Name',style: TextStyle(color: Colors.black54,fontWeight:FontWeight.bold,fontSize: 18),),
               SizedBox(height: 20,),
               TextField(textAlign: TextAlign.start,
                 cursorColor: Color(0xff005C29),
                 toolbarOptions:const ToolbarOptions(
                     copy: true, cut: true, paste: true, selectAll: true),
                 decoration: InputDecoration(
-                  labelText: 'Enter name',labelStyle: TextStyle(color: Color(0xff005C29)),
+                  labelText: 'Enter name',labelStyle: TextStyle(color: Color(0xff005C29),fontStyle: FontStyle.italic),
                   hintStyle:const TextStyle(fontSize: 12, color: Color(0xff005C29),),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -71,33 +73,25 @@ class _AccountInfoState extends State<UpdateProfile> {
                       borderRadius: BorderRadius.circular(30)
                   ),
                   height: 37,
-                  width: 140,
+                  width: 122,
                   child: TextButton(
                     child:btntitle==0?const Text('Change',style: TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.w400),):Container(width: 15,height: 25,child: CircularProgressIndicator(color: Colors.white,),),
                     onPressed: () {
-                      setState(() {
-                        btntitle=1-btntitle;
-                      });
-                      Timer(Duration(milliseconds: 2000), () {
-                        setState(() {
-                          btntitle=1-btntitle;
-                        });
-                      });
                     },
                   ),
                 ),
               ),
               SizedBox(height: 30,),
 
-              Text('Update Password:',style: TextStyle(color: Colors.black54,fontWeight:FontWeight.bold,fontSize: 22),),
+              Text('Update Password',style: TextStyle(color: Colors.black54,fontWeight:FontWeight.bold,fontSize: 18),),
               SizedBox(height: 20,),
               TextField(textAlign: TextAlign.start,
                 cursorColor: Color(0xff005C29),
                 toolbarOptions:const ToolbarOptions(
                     copy: true, cut: true, paste: true, selectAll: true),
                 decoration: InputDecoration(
-                  labelText: 'Old Password',labelStyle: TextStyle(color: Color(0xff005C29)),
-                  hintStyle:const TextStyle(fontSize: 12, color: Color(0xff005C29),),
+                  labelText: 'Old Password',labelStyle: TextStyle(color: Color(0xff005C29),fontStyle: FontStyle.italic),
+                  hintStyle:const TextStyle(fontSize: 12, color: Color(0xff005C29)),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide:const BorderSide(
@@ -123,8 +117,8 @@ class _AccountInfoState extends State<UpdateProfile> {
                 toolbarOptions:const ToolbarOptions(
                     copy: true, cut: true, paste: true, selectAll: true),
                 decoration: InputDecoration(
-                  labelText: 'New Password',labelStyle: TextStyle(color: Color(0xff005C29)),
-                  hintStyle:const TextStyle(fontSize: 12, color: Color(0xff005C29),),
+                  labelText: 'New Password',labelStyle: TextStyle(color: Color(0xff005C29),fontStyle: FontStyle.italic),
+                  hintStyle:const TextStyle(fontSize: 12, color: Color(0xff005C29)),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide:const BorderSide(
@@ -150,7 +144,7 @@ class _AccountInfoState extends State<UpdateProfile> {
                 toolbarOptions:const ToolbarOptions(
                     copy: true, cut: true, paste: true, selectAll: true),
                 decoration: InputDecoration(
-                  labelText: 'Confirm Password',labelStyle: TextStyle(color: Color(0xff005C29)),
+                  labelText: 'Confirm Password',labelStyle: TextStyle(color: Color(0xff005C29),fontStyle: FontStyle.italic),
                   hintStyle:const TextStyle(fontSize: 12, color: Color(0xff005C29),),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -180,18 +174,10 @@ class _AccountInfoState extends State<UpdateProfile> {
                       borderRadius: BorderRadius.circular(30)
                   ),
                   height: 37,
-                  width: 140,
+                  width: 122,
                   child: TextButton(
                     child:btntitle==0?const Text('Change',style: TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.w400),):Container(width: 15,height: 25,child: CircularProgressIndicator(color: Colors.white,),),
                     onPressed: () {
-                      setState(() {
-                        btntitle=1-btntitle;
-                      });
-                      Timer(Duration(milliseconds: 2000), () {
-                        setState(() {
-                          btntitle=1-btntitle;
-                        });
-                      });
                     },
                   ),
                 ),

@@ -33,7 +33,9 @@ class _ReadableBooksState extends State<ReadableBooks> {
                       stream: store.collection('text').where('category',isEqualTo: category).snapshots(),
                       builder:(context,AsyncSnapshot snapshot){
                         if(snapshot.connectionState==ConnectionState.waiting)
-                        {return const Center(child: CircularProgressIndicator(color: Colors.green,));}
+                        {
+                          return const Center(child: CircularProgressIndicator(color: Colors.green,));
+                        }
                       else if(snapshot.connectionState==ConnectionState.active){
                         if(snapshot.hasData){
 
@@ -173,12 +175,12 @@ class _ReadableBooksState extends State<ReadableBooks> {
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (BuildContext context,int index){
                                   BooksModel book=BooksModel();
-                                  var name=snapshot.data?.docs[index]['book_name'];
-                                  var category=snapshot.data?.docs[index]['category'];
-                                  var imgUrl=snapshot.data?.docs[index]['imgUrl'];
-                                  var description=snapshot.data?.docs[index]['description'];
+                                  book.title=snapshot.data?.docs[index]['book_name'];
+                                  book.category=snapshot.data?.docs[index]['category'];
+                                  book.imgUrl=snapshot.data?.docs[index]['imgUrl'];
+                                  book.desc=snapshot.data?.docs[index]['description'];
                                   book.fileUrl=snapshot.data?.docs[index]['Fileurl'];
-                                  // var author=snapshot.data?.docs[index]['author'];
+                                  book.author=snapshot.data?.docs[index]['author'];
                                   return  SizedBox(
                                     height: 250,
                                     child: Padding(
@@ -188,8 +190,8 @@ class _ReadableBooksState extends State<ReadableBooks> {
                                         children: [
                                           InkWell(child: Container(child: Column(
                                             children: [
-                                              Image.network(imgUrl,width: 100,height: 130,),
-                                              Text(name,style:const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                                              Image.network(book.imgUrl.toString(),width: 100,height: 130,),
+                                              Text(book.title.toString(),style:const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
 
                                             ],
                                           )),onTap: (){
@@ -207,15 +209,15 @@ class _ReadableBooksState extends State<ReadableBooks> {
                                                         Row(
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                           children: [
-                                                            Text(name,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
+                                                            Text(book.title.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
                                                             IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.close,size: 22,),),
 
                                                           ],),
                                                         Container(
                                                             width: 100,
                                                             height: 150,
-                                                            child: Image.network(imgUrl,fit: BoxFit.cover,)),
-                                                        Text(description,style: TextStyle(fontSize: 18),),
+                                                            child: Image.network(book.imgUrl.toString(),fit: BoxFit.cover,)),
+                                                        Text(book.desc.toString(),style: TextStyle(fontSize: 18),),
                                                         SizedBox(height: 30,),
                                                         Container(
                                                           decoration: BoxDecoration(
@@ -269,7 +271,7 @@ class _ReadableBooksState extends State<ReadableBooks> {
                                           const SizedBox(height: 2,),
                                           Text(category,style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w400),),
                                           const SizedBox(height: 2,),
-                                          Text("author",style: const TextStyle(fontSize: 11,fontWeight: FontWeight.w300),),
+                                          Text(book.author,style: const TextStyle(fontSize: 11,fontWeight: FontWeight.w300),),
                                           const SizedBox(height: 2,),
                                           const Rating(),
                                         ],
