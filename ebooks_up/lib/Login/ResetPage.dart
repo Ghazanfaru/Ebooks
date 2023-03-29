@@ -89,7 +89,7 @@ crossAxisAlignment: CrossAxisAlignment.center,
                 child: TextButton(
                   child:const Text('Submit',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400),),
                   onPressed: () {
-                    controller.forgotPass(email);
+                    controller.forgotPass(email,context);
                   },
                 ),
               ),

@@ -13,8 +13,8 @@ class _TopChartsState extends State<TopCharts> {
   String dropdownvalue = 'formats';
   var items = [
     'formats',
-    'Books',
-    'Audio Books',
+    'Text',
+    'Audio',
   ];
   String dropdownvaluee = 'categories';
   var itemss = [
@@ -82,7 +82,8 @@ class _TopChartsState extends State<TopCharts> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.vertical(
                                     top: Radius.circular(30),
-                                  )),
+                                  )
+                                  ),
                                   context: context,
                                   builder: (context) => Padding(
                                         padding: const EdgeInsets.all(20),

@@ -25,14 +25,14 @@ class TextButtons extends StatelessWidget {
                   Text(
                     btntxt,
                     style: const TextStyle(
-                        color: Colors.red,
+                        color: Colors.green,
                         fontWeight: FontWeight.w600,
                         fontSize: 15),
                   ),
                   const Icon(
                     Icons.arrow_forward_ios,
                     size: 18,
-                    color: Colors.red,
+                    color: Colors.green,
                   ),
                 ],
               ),

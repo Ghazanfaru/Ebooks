@@ -6,5 +6,8 @@ class UserModel{
   setEmail(String? email){
     this.email=email;
   }
+  setName(String Uname){
+    this.Uname=Uname;
+  }
 
 }

@@ -1,12 +1,16 @@
+import 'package:ebooks_up/UpdateProfile.dart';
 import 'package:flutter/material.dart';
-import 'AccountInfo.dart';
 import 'AccountOptions.dart';
 import 'Options/Downloads.dart';
-import 'Options/Faqs.dart';
-import 'Options/InviteFriend.dart';
 import 'Options/NotificationSettings.dart';
+import 'package:ebooks_up/Controller/UserController.dart';
+import 'package:ebooks_up/Login/LoginPage.dart';
+import 'package:ebooks_up/model/UserModel.dart';
 
 class Account extends StatelessWidget {
+
+UserController controller=UserController();
+UserModel model=UserModel();
 
 
   @override
@@ -48,22 +52,21 @@ class Account extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  const Text(
-                    'Hi, Name',
+                  Text(
+                    'Hi, ${controller.getName()}.',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
             const Divider(
-              thickness: 2,
-              height: 5,
+              height: 10,
             ),
-            AccountOptions(name: 'Account Information', onpressed: (){Navigator.pushNamed(context,AccountInfo.id);},),
-            AccountOptions(name: 'FAQ\'s & Support',onpressed: (){Navigator.pushNamed(context,Faqs.id);},),
+            AccountOptions(name: 'Update Profile', onpressed: (){Navigator.pushNamed(context,UpdateProfile.id);},),
             AccountOptions(name: 'Downloads',onpressed: (){Navigator.pushNamed(context, Downloads.id);},),
             AccountOptions(name: 'Notification Settings', onpressed:(){Navigator.pushNamed(context, NotificationSettings.id);}),
-            AccountOptions(name: 'Invite friends', onpressed: (){Navigator.pushNamed(context,InviteFriend.id);}),
+            AccountOptions(name: 'Log Out', onpressed: (){controller.logout();Navigator.pushNamed(context, LoginPage.id);}),
+
           ],
         ),
       ),

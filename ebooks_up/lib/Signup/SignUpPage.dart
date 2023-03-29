@@ -3,6 +3,7 @@ import '../Login/LoginPage.dart';
 import '../NavPages/HomePage/Home.dart';
 import 'package:ebooks_up/Controller/UserController.dart';
 import 'package:ebooks_up/model/UserModel.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 class SignUpPage extends StatefulWidget {
   static const String id='SignUpPage';
   @override
@@ -177,11 +178,23 @@ class _SignUpPageState extends State<SignUpPage> {
                       onPressed: () {
                         print(email);
                         if(pass==cPass) {
-                          UserModel userModel =new UserModel(email: email, pass: pass, Uname: name);
-                          user.register(userModel);
-
-                          Navigator.pushNamed(context, Home.id);
-                        }
+                         try {
+                           UserModel userModel = new UserModel(email: email, pass: pass, Uname: name);
+                           user.register(userModel);
+                           Navigator.pushNamed(context, LoginPage.id);
+                         }
+                         catch(e){
+                           Fluttertoast.showToast(
+                               msg: user.Exception.toString(),
+                               toastLength: Toast.LENGTH_SHORT,
+                               gravity: ToastGravity.CENTER,
+                               timeInSecForIosWeb: 1,
+                               backgroundColor: Colors.red,
+                               textColor: Colors.white,
+                               fontSize: 16.0
+                           );
+                         }
+                         }
                         else showDialog(context: context, builder: (context)=>AlertDialog(
                           content: Text("Password didn't match"),
                           actions: [

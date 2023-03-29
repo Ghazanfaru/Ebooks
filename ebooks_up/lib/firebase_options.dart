@@ -56,7 +56,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyClQa6zMPhvxG0L1YZgvQjThInwfDmGxiM',
-    appId: '1:340043362765:android:54396638656a3d2c789484',
+    appId: '1:340043362765:android:abbac5c671c4335f789484',
     messagingSenderId: '340043362765',
     projectId: 'ebooks-7be44',
     databaseURL: 'https://ebooks-7be44-default-rtdb.asia-southeast1.firebasedatabase.app',
@@ -65,7 +65,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBmqnKX1GexkcYE1d8k3O-5H1lUw9IDPLc',
-    appId: '1:340043362765:ios:e2565587b816c380789484',
+    appId: '1:340043362765:ios:0f3e139554426ce6789484',
     messagingSenderId: '340043362765',
     projectId: 'ebooks-7be44',
     databaseURL: 'https://ebooks-7be44-default-rtdb.asia-southeast1.firebasedatabase.app',
@@ -76,7 +76,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBmqnKX1GexkcYE1d8k3O-5H1lUw9IDPLc',
-    appId: '1:340043362765:ios:e2565587b816c380789484',
+    appId: '1:340043362765:ios:0f3e139554426ce6789484',
     messagingSenderId: '340043362765',
     projectId: 'ebooks-7be44',
     databaseURL: 'https://ebooks-7be44-default-rtdb.asia-southeast1.firebasedatabase.app',

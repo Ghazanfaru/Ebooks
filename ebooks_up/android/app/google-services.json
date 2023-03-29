@@ -8,14 +8,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:340043362765:android:54396638656a3d2c789484",
+        "mobilesdk_app_id": "1:340043362765:android:abbac5c671c4335f789484",
         "android_client_info": {
           "package_name": "com.example.ebooks_up"
         }
       },
       "oauth_client": [
         {
-          "client_id": "340043362765-i853tb1ll9dfug4ukqgo9p745t2oc84r.apps.googleusercontent.com",
+          "client_id": "340043362765-dh4o90k6g4dm6k5vkd1utkfo3rhuepdf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -28,7 +28,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "340043362765-i853tb1ll9dfug4ukqgo9p745t2oc84r.apps.googleusercontent.com",
+              "client_id": "340043362765-dh4o90k6g4dm6k5vkd1utkfo3rhuepdf.apps.googleusercontent.com",
               "client_type": 3
             },
             {

@@ -15,7 +15,7 @@ class TextButtons extends StatelessWidget {
         children: [
           Text(
             text,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black),
           ),
           Container(
             child: Row(
@@ -23,14 +23,14 @@ class TextButtons extends StatelessWidget {
                 Text(
                   btntxt,
                   style: const TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.w600,
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
                       fontSize: 15),
                 ),
                 const Icon(
                   Icons.arrow_forward_ios,
                   size: 18,
-                  color: Colors.red,
+                  color: Colors.green,
                 ),
               ],
             ),

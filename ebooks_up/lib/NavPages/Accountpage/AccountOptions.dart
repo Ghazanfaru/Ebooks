@@ -12,12 +12,17 @@ class AccountOptions extends StatelessWidget {
         GestureDetector(
           onTap: onpressed,
           child: Container(
-            color: Colors.white,
+           margin: EdgeInsets.only(left: 10,right: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: Colors.lightGreen.shade50
+            ),
+
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                  onPressed: null,
+                  onPressed: (){},
                   child: Text(
                     name,
                     style: const TextStyle(
@@ -38,8 +43,7 @@ class AccountOptions extends StatelessWidget {
           ),
         ),
         const Divider(
-          thickness: 2,
-          height: 5,
+          height: 10,
         ),
       ],
     );

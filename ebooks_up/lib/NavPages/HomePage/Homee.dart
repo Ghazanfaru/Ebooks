@@ -1,3 +1,4 @@
+import 'package:ebooks_up/Notifications.dart';
 import 'package:flutter/material.dart';
 import 'AudiableBooks/AuidableBooks.dart';
 import 'ReadableBooks/ReadableBooks.dart';
@@ -31,14 +32,16 @@ class _HomeeState extends State<Homee> {
                   bottom: 5,
                 ),
                 child: Text(
-                  'E-Books',
+                  'E Books',
                   style: (TextStyle(color: Colors.white,fontWeight: FontWeight.w400)),
                 ),
               ),
             ],
           ),
           actions: [
-            IconButton(onPressed: (){}, icon: Icon(Icons.notifications_active_outlined,size: 25,)),
+            IconButton(onPressed: (){
+              Navigator.pushNamed(context, Notifications.id);
+            }, icon: Icon(Icons.notifications_active_outlined,size: 25,)),
           ],
           bottom: const TabBar(
             indicatorColor: Colors.white,

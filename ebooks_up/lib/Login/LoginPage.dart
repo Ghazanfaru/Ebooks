@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:ebooks_up/Login/ResetPage.dart';
 import 'package:flutter/material.dart';
 import 'package:ebooks_up/Controller/UserController.dart';
-import '../NavPages/HomePage/Home.dart';
 import '../Signup/SignUpPage.dart';
 import 'package:ebooks_up/model/UserModel.dart';
 class LoginPage extends StatefulWidget {
@@ -16,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   UserModel userModel=UserModel();
   UserController controller=UserController();
   String email="",pass="";
+  int showpassword=1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,8 +53,8 @@ class _LoginPageState extends State<LoginPage> {
                   toolbarOptions:const ToolbarOptions(
                       copy: true, cut: true, paste: true, selectAll: true),
                   decoration: InputDecoration(
-                    hintText: 'Username or Email',
-                    hintStyle:const TextStyle(fontSize: 12, color: Color(0xff005C29)),
+                    hintText: 'someone@example.com',
+                    hintStyle:const TextStyle(fontSize: 12,fontStyle: FontStyle.italic, color: Color(0xff005C29)),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
@@ -82,10 +82,10 @@ class _LoginPageState extends State<LoginPage> {
                     });
                   },
                   keyboardType: TextInputType.emailAddress,
-                  obscureText: true,
+                  obscureText: showpassword==1?true:false,
                   decoration: InputDecoration(
                     hintText: 'Password',
-                    hintStyle:const TextStyle(fontSize: 12, color: Color(0xff005C29),),
+                    hintStyle:const TextStyle(fontSize: 12,fontStyle: FontStyle.italic, color: Color(0xff005C29),),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
@@ -103,6 +103,11 @@ class _LoginPageState extends State<LoginPage> {
                     fillColor: Colors.white,
                     contentPadding:const EdgeInsets.only(bottom: 10),
                     filled: true,
+                    suffixIcon: IconButton(onPressed: (){
+                      setState(() {
+                        showpassword=1-showpassword;
+                      });
+                    }, icon: Icon(showpassword==0?Icons.visibility_outlined:Icons.visibility_off_outlined),color: Color(0xff005C29),),
                     prefixIcon:const Icon(Icons.lock_outline,color: Color(0xff005C29),),
                   ),
                 ),
@@ -140,12 +145,13 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextButton(
                       child:const Text('Sign In',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400),),
                       onPressed: () {
+
                        setState(() {
                          userModel.email=email;
                          userModel.pass=pass;
                        });
-                       controller.login(userModel,context);
-                      },
+                        controller.login(userModel, context);
+                        }
                     ),
                   ),
                 ),
@@ -178,8 +184,24 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: GestureDetector(
                     onTap: (){
-                      Navigator.pushNamed(context, Home.id);
-                    },
+                      try {
+                        controller.signInWithGoogle(context);
+                      } catch(e){
+                        showDialog(context: context, builder: (BuildContext context){
+                          return AlertDialog(
+                            content: Text(e.toString()),
+                            actions: [
+                              Container(
+                                  decoration: BoxDecoration(
+                                      color: Color(0xff005C29),
+                                      borderRadius: BorderRadius.circular(30)
+                                  ),
+                                  child: TextButton(onPressed: ()=> Navigator.pop(context), child: Text("Try Again")))
+                            ],
+                          );
+                        });
+                      }
+                      },
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 15,vertical: 8),
                       width: 300,
@@ -193,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(0),
+                        borderRadius: BorderRadius.circular(50),
                         //border: Border.all(color: Colors.black54,width: 1.5,),
                       ),
                       child: IntrinsicHeight(
@@ -202,7 +224,7 @@ class _LoginPageState extends State<LoginPage> {
                             Image.asset('lib/assets/images/google.png'),
                             const VerticalDivider(width: 20,color: Colors.black45,thickness: 2,),
                             const SizedBox(width: 30,),
-                            const Text("Sign In with Google",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.black54),)
+                            const Text("Continue with Google",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.black54),)
                           ],
                         ),
                       ),
