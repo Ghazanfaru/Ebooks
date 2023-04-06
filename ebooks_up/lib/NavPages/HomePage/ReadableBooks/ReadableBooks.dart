@@ -12,14 +12,14 @@ class ReadableBooks extends StatefulWidget {
 
 class _ReadableBooksState extends State<ReadableBooks> {
   FirebaseFirestore store=FirebaseFirestore.instance;
-  List<String> categories=['Categories','Career','Growth','Business','Finance ','Money Management','Politics','Philosophy','Foreign Language Studies','Law','Art','Self Improvement','Wellness','Science & Mathematics','Computers','History','Technology','Engineering','Religion','Horror fiction','Humor','Mystery','Poetry','Crime','Children'];
-  var category='Career';
-  var category2='Growth';
+  List<String> categories=['Categories','Career & Growth','Business','Finance ','Money Management','Politics','Philosophy','Foreign Language Studies','Law','Art','Self Improvement','Wellness','Science & Mathematics','Computers','History','Technology','Engineering','Religion','Horror fiction','Humor','Mystery','Poetry','Crime','Children'];
+  var category='Career & Growth';
+  var category2='Business';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xffE2E5DE),
+        backgroundColor: Color(0xff212121),
       body: SingleChildScrollView(
         child: Container(
 
@@ -60,6 +60,7 @@ class _ReadableBooksState extends State<ReadableBooks> {
                             InkWell(child: Container(child: Column(
                               children: [
                                 Image.network(book.imgUrl.toString(),width: 100,height: 130,),
+                                SizedBox(height: 10,),
                                 Text(book.title.toString(),style:const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
 
                               ],

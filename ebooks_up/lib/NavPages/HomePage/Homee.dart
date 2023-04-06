@@ -11,30 +11,30 @@ class Homee extends StatefulWidget {
 }
 
 class _HomeeState extends State<Homee> {
+  TimeOfDay day=TimeOfDay.now();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                bottom:Radius.circular(20),
-              )
-          ),
           centerTitle: true,
-          backgroundColor: Color(0xff005C29),
+          backgroundColor: Color(0xff1db954),
           title: Column(
-            children: const [
+            children: [
               Padding(
                 padding: EdgeInsets.only(
                   top: 15,
                   bottom: 5,
                 ),
-                child: Text(
-                  'E Books',
-                  style: (TextStyle(color: Colors.white,fontWeight: FontWeight.w400)),
-                ),
+                child: day.period==DayPeriod.am?Text(
+                  'Good Morning!',
+                  style: (TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.bold)),
+                ):Text(
+                  'Good Evening!',
+                  style: (TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.bold)),
+                )
               ),
             ],
           ),
@@ -44,20 +44,20 @@ class _HomeeState extends State<Homee> {
             }, icon: Icon(Icons.notifications_active_outlined,size: 25,)),
           ],
           bottom: const TabBar(
-            indicatorColor: Colors.white,
+            indicatorColor: Color(0xffb3b3b3),
             indicatorSize: TabBarIndicatorSize.label,
             indicatorWeight: 3,
             tabs: [
               Tab(
                 child: Text(
-                  'Readable Books',
-                  style: (TextStyle(color: Colors.white,fontWeight: FontWeight.w400)),
+                  'Text Books',
+                  style: (TextStyle(color: Color(0xff212121),fontWeight: FontWeight.w700)),
                 ),
               ),
               Tab(
                 child: Text(
-                  'Audible Books',
-                  style: (TextStyle(color: Colors.white,fontWeight: FontWeight.w400)),
+                  'Audio Books',
+                  style: (TextStyle(color: Color(0xff212121),fontWeight: FontWeight.w700)),
                 ),
               ),
             ],

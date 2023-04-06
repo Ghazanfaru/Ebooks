@@ -16,7 +16,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE2E5DE),
+      backgroundColor: Color(0xff212121),
       appBar: AppBar(
         toolbarHeight: 60,
         shape: RoundedRectangleBorder(
@@ -26,7 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         centerTitle: true,
 
-        backgroundColor: Color(0xff005C29),
+        backgroundColor: Color(0xff1db954),
         title: const Text(
           "Sign Up ",
           style: TextStyle(
@@ -43,23 +43,23 @@ class _SignUpPageState extends State<SignUpPage> {
                   onChanged: (value){
                     name=value.toString();
                   },
-                  cursorColor: Color(0xff005C29),
+                  cursorColor: Color(0xff212121),
                   maxLength: 30,
                   toolbarOptions:const ToolbarOptions(
                       copy: true, cut: true, paste: true, selectAll: true),
                   decoration: InputDecoration(
                     hintText: 'Username',
-                    hintStyle:const TextStyle(fontSize: 12, color: Color(0xff005C29),),
+                    hintStyle:const TextStyle(fontSize: 12, color: Color(0xff212121),),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
-                        color: Color(0xff005C29),
+                        color: Color(0xff212121),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
-                        color: Color(0xff005C29),
+                        color: Color(0xff212121),
                       ),
                     ),
                     border: OutlineInputBorder(
@@ -67,31 +67,31 @@ class _SignUpPageState extends State<SignUpPage> {
                     fillColor: Colors.white,
                     contentPadding:const EdgeInsets.only(bottom: 10),
                     filled: true,
-                    prefixIcon:const Icon(Icons.person,color: Color(0xff005C29),),
+                    prefixIcon:const Icon(Icons.person,color: Color(0xff212121),),
                   ),
                 ),
                 TextField(
                   onChanged: (value){
                     email=value.toString();
                   },
-                  cursorColor: Color(0xff005C29),
+                  cursorColor: Color(0xff212121),
                   keyboardType: TextInputType.emailAddress,
                   maxLength: 30,
                   toolbarOptions:const ToolbarOptions(
                       copy: true, cut: true, paste: true, selectAll: true),
                   decoration: InputDecoration(
                     hintText: 'Email',
-                    hintStyle:const TextStyle(fontSize: 12, color:Color(0xff005C29),),
+                    hintStyle:const TextStyle(fontSize: 12, color:Color(0xff212121),),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
-                        color: Color(0xff005C29),
+                        color: Color(0xff212121),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
-                        color: Color(0xff005C29),
+                        color: Color(0xff212121),
                       ),
                     ),
                     border: OutlineInputBorder(
@@ -99,11 +99,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     fillColor: Colors.white,
                     contentPadding:const EdgeInsets.only(bottom: 10),
                     filled: true,
-                    prefixIcon:const Icon(Icons.email_outlined,color:Color(0xff005C29),),
+                    prefixIcon:const Icon(Icons.email_outlined,color:Color(0xff212121),),
                   ),
                 ),
                 TextField(
-                  cursorColor: Color(0xff005C29),
+                  cursorColor: Color(0xff212121),
                   obscureText: true,
                   onChanged: (value){
                     pass=value.toString();
@@ -111,17 +111,17 @@ class _SignUpPageState extends State<SignUpPage> {
                   keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                     hintText: 'Password',
-                    hintStyle:const TextStyle(fontSize: 12, color:Color(0xff005C29)),
+                    hintStyle:const TextStyle(fontSize: 12, color:Color(0xff212121)),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
-                        color:Color(0xff005C29),
+                        color:Color(0xff212121),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
-                        color: Color(0xff005C29),
+                        color: Color(0xff212121),
                       ),
                     ),
                     border: OutlineInputBorder(
@@ -129,7 +129,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     fillColor: Colors.white,
                     contentPadding:const EdgeInsets.only(bottom: 10),
                     filled: true,
-                    prefixIcon:const Icon(Icons.lock_outline,color:Color(0xff005C29)),
+                    prefixIcon:const Icon(Icons.lock_outline,color:Color(0xff212121)),
                   ),
                 ),
                 const SizedBox(height: 15,),
@@ -137,23 +137,23 @@ class _SignUpPageState extends State<SignUpPage> {
                   onChanged: (value){
                     cPass=value.toString();
                   },
-                  cursorColor: Color(0xff005C29),
+                  cursorColor: Color(0xff212121),
                   obscureText: true,
                   toolbarOptions:const ToolbarOptions(
                       copy: true, cut: true, paste: true, selectAll: true),
                   decoration: InputDecoration(
                     hintText: 'Confirm Password',
-                    hintStyle:const TextStyle(fontSize: 12, color:Color(0xff005C29)),
+                    hintStyle:const TextStyle(fontSize: 12, color:Color(0xff212121)),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
-                        color:Color(0xff005C29),
+                        color:Color(0xff212121),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
-                        color: Color(0xff005C29),
+                        color: Color(0xff212121),
                       ),
                     ),
                     border: OutlineInputBorder(
@@ -161,14 +161,14 @@ class _SignUpPageState extends State<SignUpPage> {
                     fillColor: Colors.white,
                     contentPadding:const EdgeInsets.only(bottom: 10),
                     filled: true,
-                    prefixIcon:const Icon(Icons.lock_outline,color: Color(0xff005C29),),
+                    prefixIcon:const Icon(Icons.lock_outline,color: Color(0xff212121),),
                   ),
                 ),
                 const SizedBox(height: 50,),
                 Center(
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Color(0xff005C29),
+                        color: Color(0xff1db954),
                         borderRadius: BorderRadius.circular(30)
                     ),
                     height: 40,
@@ -217,7 +217,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       child:const Text(
                         'Sign In',
                         style: TextStyle(
-                            color:Color(0xff005C29), fontWeight: FontWeight.w600),
+                            color:Color(0xff1db954), fontWeight: FontWeight.w600),
                       ),
                       onPressed: () {
                         Navigator.pushNamed(context, LoginPage.id);

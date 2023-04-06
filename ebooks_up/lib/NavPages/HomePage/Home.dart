@@ -34,9 +34,10 @@ class _HomeState extends State<Home> {
       length: 5,
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Color(0xff121212),
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Color(0xff005C29),
-          unselectedItemColor: Colors.black54,
+          selectedItemColor: Color(0xff1db954),
+          unselectedItemColor: Color(0xffb3b3b3),
           items: [
           BottomNavigationBarItem(icon: Icon(Icons.home),label:'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.show_chart_sharp),label:'Top Charts'),

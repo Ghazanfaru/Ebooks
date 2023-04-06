@@ -10,7 +10,7 @@ class _TextBooksState extends State<TextBooks> {
   double Value=5;
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE2E5DE),
+      backgroundColor: Color(0xff212121),
       body:Center(
         child: Container(
           child:Text('TextBooks'),

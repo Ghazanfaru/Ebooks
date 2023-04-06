@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE2E5DE),
+      backgroundColor: Color(0xff212121),
       appBar: AppBar(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
             )
         ),
         centerTitle: true,
-        backgroundColor: Color(0xff005C29),
+        backgroundColor: Color(0xff1db954),
         title: const Text(
           "Sign In ",
           style: TextStyle(
@@ -54,17 +54,17 @@ class _LoginPageState extends State<LoginPage> {
                       copy: true, cut: true, paste: true, selectAll: true),
                   decoration: InputDecoration(
                     hintText: 'someone@example.com',
-                    hintStyle:const TextStyle(fontSize: 12,fontStyle: FontStyle.italic, color: Color(0xff005C29)),
+                    hintStyle:const TextStyle(fontSize: 12,fontStyle: FontStyle.italic, color: Color(0xff212121)),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
-                        color: Color(0xff005C29),
+                        color: Color(0xff212121),
                       ),
                     ),
                     focusedBorder:  OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
-                        color: Color(0xff005C29),
+                        color: Color(0xff212121),
                       ),
                     ),
                     border: OutlineInputBorder(
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                     fillColor: Colors.white,
                     contentPadding:const EdgeInsets.only(bottom: 10),
                     filled: true,
-                    prefixIcon:const Icon(Icons.email_outlined,color: Color(0xff005C29),),
+                    prefixIcon:const Icon(Icons.email_outlined,color: Color(0xff212121),),
                   ),
                 ),
                 TextField(
@@ -81,21 +81,21 @@ class _LoginPageState extends State<LoginPage> {
                       pass=value.toString();
                     });
                   },
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.visiblePassword,
                   obscureText: showpassword==1?true:false,
                   decoration: InputDecoration(
-                    hintText: 'Password',
-                    hintStyle:const TextStyle(fontSize: 12,fontStyle: FontStyle.italic, color: Color(0xff005C29),),
+                    hintText: '******',
+                    hintStyle:const TextStyle(fontSize: 12,fontStyle: FontStyle.italic, color: Color(0xff212121),),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
-                        color: Color(0xff005C29),
+                        color: Color(0xff212121),
                       ),
                     ),
                     focusedBorder:  OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:const BorderSide(
-                        color: Color(0xff005C29),
+                        color: Color(0xff212121),
                       ),
                     ),
                     border: OutlineInputBorder(
@@ -107,19 +107,19 @@ class _LoginPageState extends State<LoginPage> {
                       setState(() {
                         showpassword=1-showpassword;
                       });
-                    }, icon: Icon(showpassword==0?Icons.visibility_outlined:Icons.visibility_off_outlined),color: Color(0xff005C29),),
-                    prefixIcon:const Icon(Icons.lock_outline,color: Color(0xff005C29),),
+                    }, icon: Icon(showpassword==0?Icons.visibility_outlined:Icons.visibility_off_outlined),color: Color(0xff212121),),
+                    prefixIcon:const Icon(Icons.lock_outline,color: Color(0xff212121),),
                   ),
                 ),
                 Row(
                   children: [
-                    Checkbox(activeColor: Color(0xff005C29),value: IsSelected, onChanged: ( bool? value){
+                    Checkbox(activeColor: Color(0xff212121),value: IsSelected, onChanged: ( bool? value){
                       setState(() {
                         IsSelected=value!;
                         print(IsSelected);
                       });
                     }),
-                    const Text('Remember me',style: TextStyle(color: Color(0xff005C29),fontSize: 15),),
+                    const Text('Remember me',style: TextStyle(color:Colors.white,fontSize: 15),),
                     const SizedBox(width: 50,),
                      TextButton(
                       onPressed: (){
@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text(
                         'Forgot Password?',
                         style: TextStyle(
-                            color:Color(0xff005C29), fontWeight: FontWeight.w400),
+                            color:Colors.white, fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xff005C29),
+                      color: Color(0xff1db954),
                       borderRadius: BorderRadius.circular(30)
                     ),
                     height: 40,
@@ -214,9 +214,9 @@ class _LoginPageState extends State<LoginPage> {
                             blurRadius: 6.0,
                           ),
                         ],
-                        color: Colors.white,
+                        color: Color(0xff1db954),
                         borderRadius: BorderRadius.circular(50),
-                        //border: Border.all(color: Colors.black54,width: 1.5,),
+
                       ),
                       child: IntrinsicHeight(
                         child: Row(
@@ -224,7 +224,7 @@ class _LoginPageState extends State<LoginPage> {
                             Image.asset('lib/assets/images/google.png'),
                             const VerticalDivider(width: 20,color: Colors.black45,thickness: 2,),
                             const SizedBox(width: 30,),
-                            const Text("Continue with Google",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.black54),)
+                            const Text("Continue with Google",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color:Colors.white),)
                           ],
                         ),
                       ),

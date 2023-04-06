@@ -13,8 +13,11 @@ class _PDFViewerState extends State<PDFViewer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.book.title.toString()),backgroundColor: Color(0xffE2E5DE),),
-      body: Container(child: SfPdfViewer.network(widget.book.fileUrl))
+      appBar: AppBar(
+        title: Text(widget.book.title.toString()),
+        backgroundColor:Color(0xff1db954)
+      ),
+      body: Container(child: SfPdfViewer.network(widget.book.fileUrl.toString()))
     );
   }
 }

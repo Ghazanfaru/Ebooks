@@ -16,7 +16,7 @@ UserModel model=UserModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE2E5DE),
+      backgroundColor: Color(0xff212121),
       appBar: AppBar(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -24,7 +24,7 @@ UserModel model=UserModel();
             )
         ),
         centerTitle: true,
-        backgroundColor: Color(0xff005C29),
+        backgroundColor: Color(0xff1db954),
         toolbarHeight: 60,
         title:const Text(
           'Account',
@@ -53,8 +53,8 @@ UserModel model=UserModel();
                     height: 15,
                   ),
                   Text(
-                    'Hi, ${controller.getName()}.',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    'Hi, ${controller.getName()} !',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Color(0xffb3b3b3)),
                   ),
                 ],
               ),

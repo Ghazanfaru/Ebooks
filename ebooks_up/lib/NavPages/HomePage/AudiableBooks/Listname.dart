@@ -15,7 +15,7 @@ class TextButtons extends StatelessWidget {
         children: [
           Text(
             text,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Color(0xffb3b3b3)),
           ),
           Container(
             child: Row(
@@ -23,7 +23,7 @@ class TextButtons extends StatelessWidget {
                 Text(
                   btntxt,
                   style: const TextStyle(
-                      color: Colors.green,
+                      color: Color(0xffb3b3b3),
                       fontWeight: FontWeight.bold,
                       fontSize: 15),
                 ),

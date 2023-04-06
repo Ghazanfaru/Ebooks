@@ -18,14 +18,14 @@ class TextButtons extends StatelessWidget {
               Text(
                 text,
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Color(0xffb3b3b3)),
               ),
               Row(
                 children: [
                   Text(
                     btntxt,
                     style: const TextStyle(
-                        color: Colors.green,
+                        color: Color(0xffb3b3b3),
                         fontWeight: FontWeight.w600,
                         fontSize: 15),
                   ),

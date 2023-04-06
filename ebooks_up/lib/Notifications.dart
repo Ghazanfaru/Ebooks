@@ -7,7 +7,7 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
-  Color ColorDark=Color(0xff005C29);
+  Color ColorDark=Color(0xff1db954);
   Color ColorLight=Color(0xffE2E5DE);
   @override
   Widget build(BuildContext context) {

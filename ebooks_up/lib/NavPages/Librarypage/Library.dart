@@ -15,23 +15,18 @@ class _SavedState extends State<Library> {
       length: 2,
       child: Scaffold(
         appBar:AppBar(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom:Radius.circular(20),
-            )
-          ),
           centerTitle: true,
-            backgroundColor: const Color(0xff005C29),
-            title: const Text('Saved',style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.w400),),
+            backgroundColor:  Color(0xff1db954),
+            title: const Text('Saved',style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold),),
             bottom: const TabBar(
               indicatorSize: TabBarIndicatorSize.label,
                   automaticIndicatorColorAdjustment: true,
-                  indicatorColor: Colors.white,
+                  indicatorColor: Color(0xffb3b3b3),
                   unselectedLabelColor: Colors.white,
                   labelColor: Colors.white,
             tabs: [
-              Tab(child: Text('Text Books ',style: (TextStyle(fontSize: 17,fontWeight: FontWeight.w400)),),),
-              Tab(child: Text('Audio Books',style: (TextStyle(fontSize: 17,fontWeight: FontWeight.w400)),),),
+              Tab(child: Text('Text Books ',style: (TextStyle(fontWeight: FontWeight.w700,color: Color(0xff121212))),),),
+              Tab(child: Text('Audio Books',style: (TextStyle(fontWeight: FontWeight.w700,color: Color(0xff121212))),),),
             ],
             ),
             ),

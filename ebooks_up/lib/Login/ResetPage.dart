@@ -16,7 +16,7 @@ class _ResetPageState extends State<ResetPage> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-        backgroundColor: Color(0xffE2E5DE),
+        backgroundColor: Color(0xff212121),
         appBar: AppBar(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
@@ -24,7 +24,7 @@ class _ResetPageState extends State<ResetPage> {
               )
           ),
           centerTitle: true,
-          backgroundColor: Color(0xff005C29),
+          backgroundColor: Color(0xff1db954),
           title: const Text(
             "Reset Password",
             style: TextStyle(
@@ -38,7 +38,7 @@ crossAxisAlignment: CrossAxisAlignment.center,
             SizedBox(height: 40,),
             Container(
                padding:EdgeInsets.only(left: 10,right: 10) ,
-                child: Text("Enter your Email And Get Reset Link.",style: TextStyle(fontSize: 20, color: Color(0xff005C29)),)
+                child: Text("Enter your Email And Get Reset Link.",style: TextStyle(fontSize: 20, color: Colors.white),)
             ),
             SizedBox(height: 40,),
             Container(
@@ -55,17 +55,17 @@ crossAxisAlignment: CrossAxisAlignment.center,
                     copy: true, cut: true, paste: true, selectAll: true),
                 decoration: InputDecoration(
                   hintText: 'Someone@Example.com',
-                  hintStyle:const TextStyle(fontSize: 12, color: Color(0xff005C29)),
+                  hintStyle:const TextStyle(fontSize: 12, color: Color(0xff212121)),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide:const BorderSide(
-                      color: Color(0xff005C29),
+                      color: Color(0xff212121),
                     ),
                   ),
                   focusedBorder:  OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide:const BorderSide(
-                      color: Color(0xff005C29),
+                      color: Color(0xff212121),
                     ),
                   ),
                   border: OutlineInputBorder(
@@ -73,7 +73,7 @@ crossAxisAlignment: CrossAxisAlignment.center,
                   fillColor: Colors.white,
                   contentPadding:const EdgeInsets.only(bottom: 10),
                   filled: true,
-                  prefixIcon:const Icon(Icons.email_outlined,color: Color(0xff005C29),),
+                  prefixIcon:const Icon(Icons.email_outlined,color: Color(0xff212121),),
                 ),
               ),
             ),
@@ -81,7 +81,7 @@ crossAxisAlignment: CrossAxisAlignment.center,
             Center(
               child: Container(
                 decoration: BoxDecoration(
-                    color: Color(0xff005C29),
+                    color: Color(0xff1db954),
                     borderRadius: BorderRadius.circular(30)
                 ),
                 height: 40,

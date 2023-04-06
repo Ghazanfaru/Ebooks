@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import 'package:ebooks_up/AudioPlayer.dart';
 import '../../../model/BooksModel.dart';
 import '../../TopChartsPage/Rating.dart';
 import '../ReadableBooks/ListsNames.dart';
-import 'AudioBookModel.dart';
 class AudiableBooks extends StatefulWidget {
   @override
 
@@ -24,7 +23,7 @@ class _AudiableBooksState extends State<AudiableBooks> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE2E5DE),
+      backgroundColor: Color(0xff212121),
       body: SingleChildScrollView(
         child: Column(
             children: [
@@ -50,6 +49,7 @@ class _AudiableBooksState extends State<AudiableBooks> {
                                 book.imgUrl=snapshot.data?.docs[index]['imgUrl'];
                                 book.desc=snapshot.data?.docs[index]['description'];
                                 book.author=snapshot.data?.docs[index]['author'];
+                                book.fileUrl=snapshot.data?.docs[index]['Fileurl'];
                                 return  SizedBox(
                                   height: 250,
                                   child: Padding(
@@ -96,7 +96,10 @@ class _AudiableBooksState extends State<AudiableBooks> {
                                                         width: 300,
                                                         height: 40,
                                                         child: ElevatedButton(
-                                                          onPressed: null,
+                                                          onPressed:()async{
+                                                            await Navigator.push(context, MaterialPageRoute(builder: (context)=> Audioplayer(booksModel: book,)));
+
+                                                            },
                                                           child: Text(
                                                             'Play',
                                                             style: TextStyle(
@@ -171,6 +174,7 @@ class _AudiableBooksState extends State<AudiableBooks> {
                                 book.imgUrl=snapshot.data?.docs[index]['imgUrl'];
                                 book.desc=snapshot.data?.docs[index]['description'];
                                 book.author=snapshot.data?.docs[index]['author'];
+                                book.fileUrl=snapshot.data?.docs[index]['Fileurl'];
                                 return  SizedBox(
                                   height: 250,
                                   child: Padding(

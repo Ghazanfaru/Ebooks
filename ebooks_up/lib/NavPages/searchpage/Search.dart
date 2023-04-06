@@ -10,11 +10,10 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  String? query;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE2E5DE),
+      backgroundColor: Color(0xff212121),
       appBar: AppBar(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -23,7 +22,7 @@ class _SearchState extends State<Search> {
         ),
         centerTitle: true,
         toolbarHeight: 70,
-        backgroundColor: Color(0xff005C29),
+        backgroundColor: Color(0xff1db954),
         title:Text("Search"),),
 
       body: SingleChildScrollView(
@@ -42,11 +41,10 @@ class _SearchState extends State<Search> {
                 child: TextField(
                   onSubmitted: (query){
 Navigator.push(context, new MaterialPageRoute(builder: (context)=> new Searchedbykey(query: query)));
-print(query);
                   },
                   decoration: InputDecoration(
                     hintText: 'Search the World\'s most popular books',
-                    hintStyle: TextStyle(fontSize: 12,color: Color(0xff005C29)),
+                    hintStyle: TextStyle(fontSize: 12,color: Color(0xff212121)),
                     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20),borderSide: BorderSide(color: Colors.black54,),
                     ),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
@@ -54,12 +52,12 @@ print(query);
                     fillColor: Colors.white,
                     contentPadding: EdgeInsets.only(bottom: 10),
                     filled: true,
-                    prefixIcon: Icon(Icons.search,color: Color(0xff005C29),),
+                    prefixIcon: Icon(Icons.search,color: Color(0xff212121),),
 
                   ),),
               ),
               SizedBox(height: 20,),
-              Container(padding: EdgeInsets.only(top: 20,bottom: 5,left: 20,right: 20),height: 50,child: Text('Browse All Interests',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22),)),
+              Container(padding: EdgeInsets.only(top: 20,bottom: 5,left: 20,right: 20),height: 50,child: Text('Browse All Interests',style: TextStyle(color: Color(0xffb3b3b3),fontWeight: FontWeight.bold,fontSize: 22),)),
              SizedBox(height: 20,),
               SearchClass(category: 'Business',),
               SearchClass(category: 'Career & Growth',),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../BooksPage/BookTile.dart';
 import 'SelectCategory.dart';
 
 class TopCharts extends StatefulWidget {
@@ -28,7 +27,7 @@ class _TopChartsState extends State<TopCharts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE2E5DE),
+      backgroundColor: Color(0xff212121),
       appBar: AppBar(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -41,7 +40,7 @@ class _TopChartsState extends State<TopCharts> {
           style: TextStyle(
           color: Colors.white, fontWeight: FontWeight.w400, fontSize: 20),
         ),
-        backgroundColor: Color(0xff005C29),
+        backgroundColor: Color(0xff1db954),
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30, 20, 0, 0),
@@ -51,7 +50,7 @@ class _TopChartsState extends State<TopCharts> {
             children: [
               Text(
                 'The most popular books and audiobooks\nYou will find here for free with single click',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 15,color: Color(0xffb3b3b3)),
               ),
               SizedBox(
                 height: 22,
@@ -61,8 +60,8 @@ class _TopChartsState extends State<TopCharts> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xff005C29),
-                      border: Border.all(color: Color(0xff005C29)),
+                      color: Color(0xff1db954),
+                      border: Border.all(color: Color(0xff1db954)),
                     ),
 
                     height: 35,
@@ -137,7 +136,7 @@ class _TopChartsState extends State<TopCharts> {
                                               child: Column(
                                                 children: [
                                                   Container(decoration: BoxDecoration(
-                                                    color: Color(0xff005C29),
+                                                    color: Color(0xff1db954),
                                                     borderRadius: BorderRadius.circular(5),
                                                   ),
 
@@ -189,8 +188,8 @@ class _TopChartsState extends State<TopCharts> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Color(0xff005C29)),
-                      color: Color(0xff005C29),
+                      border: Border.all(color: Color(0xff1db954)),
+                      color: Color(0xff1db954),
                     ),
                     height: 35,
                     child: Padding(
@@ -275,60 +274,6 @@ class _TopChartsState extends State<TopCharts> {
               ),
               SizedBox(
                 height: 15,
-              ),
-              BookTiles(
-                path: 'lib/assets/images/t1.PNG',
-                name: 'Interaction Design',
-                category: 'Acedemics',
-                author: 'John Wiley',
-              ),
-              BookTiles(
-                path: 'lib/assets/images/t2.PNG',
-                name: 'Software Quality\n Engineering',
-                category: 'Acedemics',
-                author: 'Daniel Galin',
-              ),
-              BookTiles(
-                path: 'lib/assets/images/t3.PNG',
-                name: 'Software Project\n Engineering',
-                category: 'Acedemics',
-                author: 'Unkown',
-              ),
-              BookTiles(
-                path: 'lib/assets/images/t1.PNG',
-                name: 'Interaction Design',
-                category: 'Acedemics',
-                author: 'John Wiley',
-              ),
-              BookTiles(
-                path: 'lib/assets/images/t2.PNG',
-                name: 'Software Quality\n Engineering',
-                category: 'Acedemics',
-                author: 'Daniel Galin',
-              ),
-              BookTiles(
-                path: 'lib/assets/images/t3.PNG',
-                name: 'Software Project\n Engineering',
-                category: 'Acedemics',
-                author: 'Unkown',
-              ),
-              BookTiles(
-                path: 'lib/assets/images/t1.PNG',
-                name: 'Interaction Design',
-                category: 'Acedemics',
-                author: 'John Wiley',
-              ),
-              BookTiles(
-                path: 'lib/assets/images/t2.PNG',
-                name: 'Software Quality\n Engineering',
-                category: 'Acedemics',
-                author: 'Daniel Galin',
-              ),
-              BookTiles(
-                path: 'lib/assets/images/t3.PNG',
-                name: 'Software Project\n Engineering',
-                category: 'Acedemics',
-                author: 'Unkown',
               ),
             ],
           ),

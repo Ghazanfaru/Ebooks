@@ -19,7 +19,7 @@ class _SearchClassState extends State<SearchClass> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextButton(child:Text(widget.category,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w400,fontSize: 18),),
+          TextButton(child:Text(widget.category,style: TextStyle(color: Color(0xffb3b3b3),fontWeight: FontWeight.w400,fontSize: 18),),
             onPressed:(){
             Navigator.push(context,new MaterialPageRoute(builder: (context)=> new Searched(category: widget.category,)));
           },),

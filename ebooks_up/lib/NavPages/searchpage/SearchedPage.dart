@@ -19,10 +19,10 @@ class _SearchedState extends State<Searched> {
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
-      backgroundColor: Color(0xffE2E5DE),
+      backgroundColor: Color(0xff212121),
       appBar: AppBar(
         title: Text(widget.category),
-        backgroundColor:  Color(0xff005C29),
+        backgroundColor:  Color(0xff1db954),
       ),
         body: StreamBuilder<QuerySnapshot<Map<String,dynamic>>>(
             stream: store.collection('text').where('category',isEqualTo: widget.category).snapshots(),
@@ -53,6 +53,7 @@ class _SearchedState extends State<Searched> {
                                 InkWell(child: Container(child: Column(
                                   children: [
                                     Image.network(book.imgUrl.toString(),width: 100,height: 130,),
+                                    SizedBox(height: 15,),
                                     Text(book.title.toString(),style:const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
 
                                   ],

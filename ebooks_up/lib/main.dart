@@ -1,5 +1,4 @@
 import 'package:ebooks_up/Login/ResetPage.dart';
-import 'package:ebooks_up/NavPages/HomePage/PDFViewer.dart';
 import 'package:ebooks_up/Notifications.dart';
 import 'package:ebooks_up/SplashScreen.dart';
 import 'package:ebooks_up/UpdateProfile.dart';
@@ -7,10 +6,7 @@ import 'package:flutter/material.dart';
 import 'Login/LoginPage.dart';
 import 'NavPages/Accountpage/AccountInfo.dart';
 import 'NavPages/Accountpage/Options/Downloads.dart';
-import 'NavPages/Accountpage/Options/Faqs.dart';
-import 'NavPages/Accountpage/Options/InviteFriend.dart';
 import 'NavPages/Accountpage/Options/NotificationSettings.dart';
-import 'NavPages/Accountpage/Options/Shortcuts.dart';
 import 'NavPages/HomePage/Home.dart';
 import 'Signup/SignUpPage.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,21 +31,18 @@ class MyApp extends StatelessWidget {
       title: 'e-books',
       theme: ThemeData(
       ),
-     initialRoute: LoginPage.id,
+     initialRoute: SplashScreen.id,
       routes: {
-        SplashScreen.id:(context)=>SplashScreen(),
+        SplashScreen.id:(context)=>const SplashScreen(),
         UpdateProfile.id:(context)=>UpdateProfile(),
-        Notifications.id:(context)=>Notifications(),
-        ResetPage.id:(context) =>ResetPage(),
+        Notifications.id:(context)=>const Notifications(),
+        ResetPage.id:(context) =>const ResetPage(),
         LoginPage.id: (context) =>LoginPage(),
         SignUpPage.id: (context) =>SignUpPage(),
         Home.id: (context) => Home(),
         AccountInfo.id: (context) => AccountInfo(),
-        Faqs.id: (context) => Faqs(),
         Downloads.id: (context) => Downloads(),
-        NotificationSettings.id: (context) => NotificationSettings(),
-        Shortcutss.id: (context) => Shortcutss(),
-        InviteFriend.id: (context) => InviteFriend(),
+        NotificationSettings.id: (context) => NotificationSettings()
       },
     );
   }
