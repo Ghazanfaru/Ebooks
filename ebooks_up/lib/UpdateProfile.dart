@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:ebooks_up/model/UserModel.dart';
 class UpdateProfile extends StatefulWidget {
   static const String id='UpdateProfile';
   @override
@@ -8,7 +7,11 @@ class UpdateProfile extends StatefulWidget {
 }
 class _AccountInfoState extends State<UpdateProfile> {
   @override
+  int showpassword=1;
   int btntitle=0;
+  UserModel user=UserModel();
+
+  String? name;
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff212121),
@@ -39,12 +42,16 @@ class _AccountInfoState extends State<UpdateProfile> {
               Text('Update Name',style: TextStyle(color: Color(0xffb3b3b3),fontWeight:FontWeight.bold,fontSize: 18),),
               SizedBox(height: 20,),
               TextField(textAlign: TextAlign.start,
-                cursorColor: Color(0xff005C29),
+onChanged: (value){
+                setState(() {
+                  name=value.toString();
+                });
+},
                 toolbarOptions:const ToolbarOptions(
                     copy: true, cut: true, paste: true, selectAll: true),
                 decoration: InputDecoration(
-                  labelText: 'Enter name',labelStyle: TextStyle(color: Color(0xff212121),fontStyle: FontStyle.italic),
-                  hintStyle:const TextStyle(fontSize: 12, color: Color(0xff212121),),
+                  hintText: 'Enter name',labelStyle: TextStyle(color: Color(0xff212121),),
+                  hintStyle:const TextStyle(fontSize: 12),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide:const BorderSide(
@@ -59,7 +66,7 @@ class _AccountInfoState extends State<UpdateProfile> {
                   ),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  fillColor: Colors.white,
+                  fillColor:  Color(0xff535353).withOpacity(0.5),
                   contentPadding:const EdgeInsets.only(bottom: 10,left: 30),
                   filled: true,
                ),
@@ -77,21 +84,28 @@ class _AccountInfoState extends State<UpdateProfile> {
                   child: TextButton(
                     child:btntitle==0?const Text('Change',style: TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.w400),):Container(width: 15,height: 25,child: CircularProgressIndicator(color: Colors.white,),),
                     onPressed: () {
+                      user.setName(name.toString());
+                      showDialog(context: context, builder: (context)
+                      {
+                        return AlertDialog(content: Text("Name is updated."),
+                      actions: [
+                        TextButton(onPressed:() => Navigator.pop(context), child: Text("OK"))],);
                     },
-                  ),
+                  );
+                    }
                 ),
-              ),
-              SizedBox(height: 30,),
+              ),),
+               SizedBox(height: 30,),
 
               Text('Update Password',style: TextStyle(color: Color(0xffb3b3b3),fontWeight:FontWeight.bold,fontSize: 18),),
               SizedBox(height: 20,),
               TextField(textAlign: TextAlign.start,
-                cursorColor: Color(0xff212121),
+                obscureText: showpassword==1?true:false,
                 toolbarOptions:const ToolbarOptions(
                     copy: true, cut: true, paste: true, selectAll: true),
                 decoration: InputDecoration(
-                  labelText: 'Old Password',labelStyle: TextStyle(color: Color(0xff212121),fontStyle: FontStyle.italic),
-                  hintStyle:const TextStyle(fontSize: 12, color:Color(0xff212121)),
+                  hintText: 'Old Password',
+                  hintStyle:const TextStyle(fontSize: 12, color:Color( 0xffb3b3b3),),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide:const BorderSide(
@@ -106,19 +120,32 @@ class _AccountInfoState extends State<UpdateProfile> {
                   ),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  fillColor: Colors.white,
+                  fillColor:  Color(0xff535353).withOpacity(0.5),
                   contentPadding:const EdgeInsets.only(bottom: 10,left: 30),
                   filled: true,
+                  suffixIcon: IconButton(onPressed: (){
+                    setState(() {
+                      showpassword=1-showpassword;
+                    });
+                  }, icon: Icon(showpassword==0?Icons.visibility_outlined:
+                  Icons.visibility_off_outlined),color: Color(0xffb3b3b3),),
                 ),
               ),
               SizedBox(height: 30,),
               TextField(textAlign: TextAlign.start,
-                cursorColor: Color(0xff212121),
+                obscureText: showpassword==1?true:false,
                 toolbarOptions:const ToolbarOptions(
                     copy: true, cut: true, paste: true, selectAll: true),
                 decoration: InputDecoration(
-                  labelText: 'New Password',labelStyle: TextStyle(color: Color(0xff212121),fontStyle: FontStyle.italic),
-                  hintStyle:const TextStyle(fontSize: 12, color: Color(0xff212121)),
+                  suffixIcon: IconButton(onPressed: (){
+                    setState(() {
+                      showpassword=1-showpassword;
+                    });
+                  }, icon: Icon(showpassword==0?Icons.visibility_outlined:
+                  Icons.visibility_off_outlined),color: Color(0xffb3b3b3),),
+                  hintText: 'New Password',
+
+                  hintStyle:const TextStyle(fontSize: 12,),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide:const BorderSide(
@@ -133,19 +160,25 @@ class _AccountInfoState extends State<UpdateProfile> {
                   ),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  fillColor: Colors.white,
+                  fillColor:  Color(0xff535353).withOpacity(0.5),
                   contentPadding:const EdgeInsets.only(bottom: 10,left: 30),
                   filled: true,
                 ),
               ),
               SizedBox(height: 10,),
               TextField(textAlign: TextAlign.start,
-                cursorColor: Color(0xff212121),
+                obscureText: showpassword==1?true:false,
                 toolbarOptions:const ToolbarOptions(
                     copy: true, cut: true, paste: true, selectAll: true),
                 decoration: InputDecoration(
-                  labelText: 'Confirm Password',labelStyle: TextStyle(color: Color(0xff212121),fontStyle: FontStyle.italic),
-                  hintStyle:const TextStyle(fontSize: 12, color: Color(0xff212121),),
+                  suffixIcon: IconButton(onPressed: (){
+                    setState(() {
+                      showpassword=1-showpassword;
+                    });
+                  }, icon: Icon(showpassword==0?Icons.visibility_outlined:
+                  Icons.visibility_off_outlined),color: Color(0xffb3b3b3),),
+                  hintText: 'Confirm Password',labelStyle: TextStyle(color: Color(0xff212121),fontStyle: FontStyle.italic),
+                  hintStyle:const TextStyle(fontSize: 12,),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide:const BorderSide(
@@ -160,7 +193,7 @@ class _AccountInfoState extends State<UpdateProfile> {
                   ),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  fillColor: Colors.white,
+                  fillColor:  Color(0xff535353).withOpacity(0.5),
                   contentPadding:const EdgeInsets.only(bottom: 10,left: 30),
                   filled: true,
                 ),
@@ -182,7 +215,7 @@ class _AccountInfoState extends State<UpdateProfile> {
                   ),
                 ),
               ),
-            ],
+              ],
           ),
         ),
       ),

@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:ebooks_up/Login/ResetPage.dart';
 import 'package:flutter/material.dart';
 import 'package:ebooks_up/Controller/UserController.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Signup/SignUpPage.dart';
 import 'package:ebooks_up/model/UserModel.dart';
 class LoginPage extends StatefulWidget {
@@ -16,6 +17,12 @@ class _LoginPageState extends State<LoginPage> {
   UserController controller=UserController();
   String email="",pass="";
   int showpassword=1;
+
+  @override
+  void initState(){
+    _loadUserEmailPassword();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,9 +46,11 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 80,),
+                SizedBox(height: 20,),
+                Container(child: Text("Sign In to continue.",style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold,)),),
+                const SizedBox(height: 50,),
                 TextField(
                   onChanged: (value){
                     setState(() {
@@ -49,32 +58,32 @@ class _LoginPageState extends State<LoginPage> {
                     });
                   },
                   keyboardType: TextInputType.emailAddress,
-                  maxLength: 30,
                   toolbarOptions:const ToolbarOptions(
                       copy: true, cut: true, paste: true, selectAll: true),
                   decoration: InputDecoration(
-                    hintText: 'someone@example.com',
-                    hintStyle:const TextStyle(fontSize: 12,fontStyle: FontStyle.italic, color: Color(0xff212121)),
+                    hintText: 'Email',
+                    hintStyle:const TextStyle(fontSize: 12, color:Color(0xffb3b3b3) ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       borderSide:const BorderSide(
                         color: Color(0xff212121),
                       ),
                     ),
                     focusedBorder:  OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       borderSide:const BorderSide(
                         color: Color(0xff212121),
                       ),
                     ),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    fillColor: Colors.white,
-                    contentPadding:const EdgeInsets.only(bottom: 10),
+                        borderRadius: BorderRadius.circular(10)),
+                    fillColor: Color(0xff535353).withOpacity(0.5),
+                    contentPadding:const EdgeInsets.only(left:20,bottom: 10),
                     filled: true,
-                    prefixIcon:const Icon(Icons.email_outlined,color: Color(0xff212121),),
+                    suffixIcon:Icon(Icons.email_outlined,color: Color(0xffb3b3b3),),
                   ),
                 ),
+                SizedBox(height: 20,),
                 TextField(
                   onChanged: (value){
                     setState(() {
@@ -84,56 +93,63 @@ class _LoginPageState extends State<LoginPage> {
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: showpassword==1?true:false,
                   decoration: InputDecoration(
-                    hintText: '******',
-                    hintStyle:const TextStyle(fontSize: 12,fontStyle: FontStyle.italic, color: Color(0xff212121),),
+
+                    hintText: 'Password',
+                    hintStyle:const TextStyle(fontSize: 12, color: Color(0xffb3b3b3),),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       borderSide:const BorderSide(
                         color: Color(0xff212121),
                       ),
                     ),
                     focusedBorder:  OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       borderSide:const BorderSide(
                         color: Color(0xff212121),
                       ),
                     ),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    fillColor: Colors.white,
-                    contentPadding:const EdgeInsets.only(bottom: 10),
+                        borderRadius: BorderRadius.circular(10)),
+                    fillColor: Color(0xff535353).withOpacity(0.5),
+                    contentPadding:const EdgeInsets.only(left:20,bottom: 10),
                     filled: true,
                     suffixIcon: IconButton(onPressed: (){
                       setState(() {
                         showpassword=1-showpassword;
                       });
-                    }, icon: Icon(showpassword==0?Icons.visibility_outlined:Icons.visibility_off_outlined),color: Color(0xff212121),),
-                    prefixIcon:const Icon(Icons.lock_outline,color: Color(0xff212121),),
+                    }, icon: Icon(showpassword==0?Icons.visibility_outlined:
+                    Icons.visibility_off_outlined),color: Color(0xffb3b3b3),),
+
                   ),
                 ),
+                SizedBox(height: 20,),
                 Row(
                   children: [
-                    Checkbox(activeColor: Color(0xff212121),value: IsSelected, onChanged: ( bool? value){
+                    Checkbox(
+                      side: BorderSide(color: Colors.white70),
+                        checkColor: Colors.black45,
+                        activeColor: Color(0xffb3b3b3),value: IsSelected, onChanged: ( bool? value){
                       setState(() {
                         IsSelected=value!;
-                        print(IsSelected);
+                 _handleRemeberme(IsSelected);
                       });
                     }),
-                    const Text('Remember me',style: TextStyle(color:Colors.white,fontSize: 15),),
+                    const Text('Remember me',style: TextStyle(color:Color(0xffb3b3b3),fontSize: 15),),
                     const SizedBox(width: 50,),
                      TextButton(
-                      onPressed: (){
+                      onPressed: ()
+                      {
                        Navigator.pushNamed(context, ResetPage.id);
                       },
                       child: Text(
                         'Forgot Password?',
                         style: TextStyle(
-                            color:Colors.white, fontWeight: FontWeight.w400),
+                            color:Color(0xffb3b3b3), fontWeight: FontWeight.w400),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(height:30,),
                 Center(
                   child: Container(
                     decoration: BoxDecoration(
@@ -166,14 +182,14 @@ class _LoginPageState extends State<LoginPage> {
                             thickness: 2,
                           )),
                     ),
-                    const Text("OR"),
+                    const Text("OR",style: TextStyle(color:Color( 0xffb3b3b3),),),
                     Expanded(
                       child: Container(
                           margin:const EdgeInsets.only(left: 5, right: 20.0),
                           child:const Divider(
                             thickness: 2,
                             color: Colors.grey,
-                            height: 50,
+                            height: 40,
                           )),
                     ),
                   ]),
@@ -209,12 +225,12 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: BoxDecoration(
                         boxShadow: [
                            BoxShadow(
-                            color: Colors.black54,
+                            color: Colors.white70,
                             offset: Offset(0.0, 1.0),
                             blurRadius: 6.0,
                           ),
                         ],
-                        color: Color(0xff1db954),
+                        color: Color(0xff212121),
                         borderRadius: BorderRadius.circular(50),
 
                       ),
@@ -222,9 +238,9 @@ class _LoginPageState extends State<LoginPage> {
                         child: Row(
                           children: [
                             Image.asset('lib/assets/images/google.png'),
-                            const VerticalDivider(width: 20,color: Colors.black45,thickness: 2,),
+                            const VerticalDivider(width: 20,color: Colors.white70,thickness: 2,),
                             const SizedBox(width: 30,),
-                            const Text("Continue with Google",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color:Colors.white),)
+                            const Text("Continue with Google",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500,color:Colors.white),)
                           ],
                         ),
                       ),
@@ -248,7 +264,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: Color(0xff005C29), fontWeight: FontWeight.w600),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, SignUpPage.id);
+                        Navigator.pushReplacementNamed(context, SignUpPage.id);
                       },
                     ),
                   ],
@@ -260,4 +276,24 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+  Future<void> _handleRemeberme(bool value) async {
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    var _isChecked = value;
+  preferences.setString("email", email);
+  preferences.setString("pass", pass);
+    setState(() {
+      _isChecked = value;
+    });
+  }
+  void _loadUserEmailPassword() async {
+SharedPreferences preferences= await SharedPreferences.getInstance();
+String? email=preferences.getString("email");
+String? pass=preferences.getString("pass");
+userModel.email=email!;
+userModel.pass=pass!;
+setState(() {
+  controller.login(userModel, context);
+});
+}
 }

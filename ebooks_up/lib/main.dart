@@ -12,6 +12,8 @@ import 'Signup/SignUpPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -28,8 +30,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'e-books',
+      title: 'eBooks',
       theme: ThemeData(
+        hintColor: Color( 0xffb3b3b3),
+        textTheme: TextTheme(titleMedium: TextStyle(
+            color: Color(0xffb3b3b3)
+        )
+        ),
+textSelectionTheme: TextSelectionThemeData(
+  cursorColor: Color( 0xffb3b3b3),
+  selectionColor:Color( 0xffb3b3b3).withOpacity(0.2),
+  selectionHandleColor:  Color( 0xffb3b3b3),)
       ),
      initialRoute: SplashScreen.id,
       routes: {

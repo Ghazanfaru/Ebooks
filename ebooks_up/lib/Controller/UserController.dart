@@ -27,7 +27,7 @@ void login(UserModel userModel,BuildContext context)async{
    UserCredential user = await auth.signInWithEmailAndPassword(
        email: userModel.email.toString(), password: userModel.pass.toString());
   if(user!=null){
-    Navigator.pushNamed(context, Home.id);
+    Navigator.pushReplacementNamed(context, Home.id);
   }
  }on FirebaseAuthException catch(e){
    showDialog(context: context, builder: (BuildContext context){
@@ -89,7 +89,16 @@ Future<UserCredential> signInWithGoogle(BuildContext context) async {
     idToken: googleAuth.idToken,
   );
   return await auth.signInWithCredential(credential).whenComplete(() => {
-  Navigator.pushNamed(context, Home.id)
+  Navigator.pushReplacementNamed(context, Home.id)
+  }).catchError((){
+    showDialog(context: context, builder: (context){
+      return AlertDialog(
+        content:Text("Sign In Failed"),
+        actions: [
+          TextButton(onPressed:() => Navigator.pop(context), child: Text("Try Again"))
+        ],
+      );
+    });
   });
 
 }

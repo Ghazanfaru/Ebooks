@@ -65,7 +65,7 @@ UserModel model=UserModel();
             AccountOptions(name: 'Update Profile', onpressed: (){Navigator.pushNamed(context,UpdateProfile.id);},),
             AccountOptions(name: 'Downloads',onpressed: (){Navigator.pushNamed(context, Downloads.id);},),
             AccountOptions(name: 'Notification Settings', onpressed:(){Navigator.pushNamed(context, NotificationSettings.id);}),
-            AccountOptions(name: 'Log Out', onpressed: (){controller.logout();Navigator.pushNamed(context, LoginPage.id);}),
+            AccountOptions(name: 'Log Out', onpressed: (){controller.logout();Navigator.pushReplacementNamed(context, LoginPage.id);}),
 
           ],
         ),

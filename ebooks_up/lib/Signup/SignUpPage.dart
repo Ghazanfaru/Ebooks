@@ -13,6 +13,8 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   UserController user=UserController();
  String? email,pass,name,cPass;
+
+ int showpassword=1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,93 +45,100 @@ class _SignUpPageState extends State<SignUpPage> {
                   onChanged: (value){
                     name=value.toString();
                   },
-                  cursorColor: Color(0xff212121),
+                  cursorColor: Color( 0xffb3b3b3),
                   maxLength: 30,
                   toolbarOptions:const ToolbarOptions(
                       copy: true, cut: true, paste: true, selectAll: true),
                   decoration: InputDecoration(
                     hintText: 'Username',
-                    hintStyle:const TextStyle(fontSize: 12, color: Color(0xff212121),),
+                    hintStyle:const TextStyle(fontSize: 12,  color:Color(0xffb3b3b3),),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       borderSide:const BorderSide(
                         color: Color(0xff212121),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       borderSide:const BorderSide(
                         color: Color(0xff212121),
                       ),
                     ),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    fillColor: Colors.white,
-                    contentPadding:const EdgeInsets.only(bottom: 10),
+                        borderRadius: BorderRadius.circular(10)),
+                    fillColor: Color(0xff535353).withOpacity(0.5),
+                    contentPadding:const EdgeInsets.only(left: 20,bottom: 10),
                     filled: true,
-                    prefixIcon:const Icon(Icons.person,color: Color(0xff212121),),
+                    suffixIcon:const Icon(Icons.person,color:Color(0xffb3b3b3),),
+
+
                   ),
                 ),
                 TextField(
                   onChanged: (value){
                     email=value.toString();
                   },
-                  cursorColor: Color(0xff212121),
+                  cursorColor: Color( 0xffb3b3b3),
                   keyboardType: TextInputType.emailAddress,
                   maxLength: 30,
                   toolbarOptions:const ToolbarOptions(
                       copy: true, cut: true, paste: true, selectAll: true),
                   decoration: InputDecoration(
                     hintText: 'Email',
-                    hintStyle:const TextStyle(fontSize: 12, color:Color(0xff212121),),
+                    hintStyle:const TextStyle(fontSize: 12,  color:Color(0xffb3b3b3)),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       borderSide:const BorderSide(
                         color: Color(0xff212121),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       borderSide:const BorderSide(
                         color: Color(0xff212121),
                       ),
                     ),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    fillColor: Colors.white,
-                    contentPadding:const EdgeInsets.only(bottom: 10),
+                        borderRadius: BorderRadius.circular(10)),
+                    fillColor:Color(0xff535353).withOpacity(0.5),
+                    contentPadding:const EdgeInsets.only(left: 20,bottom: 10),
                     filled: true,
-                    prefixIcon:const Icon(Icons.email_outlined,color:Color(0xff212121),),
+                    suffixIcon:const Icon(Icons.person, color:Color(0xffb3b3b3),),
                   ),
                 ),
                 TextField(
-                  cursorColor: Color(0xff212121),
-                  obscureText: true,
+                  cursorColor: Color( 0xffb3b3b3),
+                  obscureText: showpassword==1?true:false,
                   onChanged: (value){
                     pass=value.toString();
                   },
                   keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                     hintText: 'Password',
-                    hintStyle:const TextStyle(fontSize: 12, color:Color(0xff212121)),
+                    hintStyle:const TextStyle(fontSize: 12,  color:Color(0xffb3b3b3)),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       borderSide:const BorderSide(
                         color:Color(0xff212121),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       borderSide:const BorderSide(
                         color: Color(0xff212121),
                       ),
                     ),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    fillColor: Colors.white,
-                    contentPadding:const EdgeInsets.only(bottom: 10),
-                    filled: true,
-                    prefixIcon:const Icon(Icons.lock_outline,color:Color(0xff212121)),
+                        borderRadius: BorderRadius.circular(10)),
+                    fillColor:Color(0xff535353).withOpacity(0.5),
+                      contentPadding:const EdgeInsets.only(left: 20,bottom: 10),
+                      filled: true,
+                      suffixIcon:IconButton(onPressed: (){
+                        setState(() {
+                          showpassword=1-showpassword;
+                        });
+                      },
+                        icon:Icon(showpassword==0?Icons.visibility_outlined:Icons.visibility_off_outlined),color: Color(0xffb3b3b3),)
                   ),
                 ),
                 const SizedBox(height: 15,),
@@ -137,31 +146,36 @@ class _SignUpPageState extends State<SignUpPage> {
                   onChanged: (value){
                     cPass=value.toString();
                   },
-                  cursorColor: Color(0xff212121),
-                  obscureText: true,
+                  cursorColor: Color( 0xffb3b3b3),
+                  obscureText: showpassword==0?false:true,
                   toolbarOptions:const ToolbarOptions(
                       copy: true, cut: true, paste: true, selectAll: true),
                   decoration: InputDecoration(
                     hintText: 'Confirm Password',
-                    hintStyle:const TextStyle(fontSize: 12, color:Color(0xff212121)),
+                    hintStyle:const TextStyle(fontSize: 12,  color:Color(0xffb3b3b3)),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       borderSide:const BorderSide(
                         color:Color(0xff212121),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       borderSide:const BorderSide(
                         color: Color(0xff212121),
                       ),
                     ),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    fillColor: Colors.white,
-                    contentPadding:const EdgeInsets.only(bottom: 10),
+                        borderRadius: BorderRadius.circular(10)),
+                    fillColor: Color(0xff535353).withOpacity(0.5),
+                    contentPadding:const EdgeInsets.only(left: 20,bottom: 10),
                     filled: true,
-                    prefixIcon:const Icon(Icons.lock_outline,color: Color(0xff212121),),
+                    suffixIcon:IconButton(onPressed: (){
+                      setState(() {
+                        showpassword=1-showpassword;
+                      });
+                    },
+                        icon:Icon(showpassword==0?Icons.visibility_outlined:Icons.visibility_off_outlined),color: Color(0xffb3b3b3),)
                   ),
                 ),
                 const SizedBox(height: 50,),

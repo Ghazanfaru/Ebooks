@@ -20,14 +20,11 @@ class _AudioplayerState extends State<Audioplayer> {
   @override
   void initState() {
     super.initState();
-    print("book url is: ${widget.booksModel.fileUrl}");
-    print("book title is: ${widget.booksModel.title}");
     initplayer();
 
   }
 void initplayer() async{
   await player.setSourceUrl(widget.booksModel.fileUrl.toString());
-  print("init function running");
   duration= await player.getDuration();
 }
   @override
