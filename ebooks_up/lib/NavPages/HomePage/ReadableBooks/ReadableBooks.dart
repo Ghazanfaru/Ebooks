@@ -66,11 +66,14 @@ class _ReadableBooksState extends State<ReadableBooks> {
                               ],
                             )),onTap: (){
                               showModalBottomSheet<dynamic>(isDismissible: true,
+                              backgroundColor: Color(0xffb3b3b3),
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(30),
                                 )
-                              ),context: context, builder: (context)=>Padding(
+                              ),context: context, builder: (context)=>
+                                      Padding(
+                                        
                                 padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 30),
                                 child: SingleChildScrollView(
                                   child: Column(
@@ -89,43 +92,38 @@ class _ReadableBooksState extends State<ReadableBooks> {
                                           child: Image.network(book.imgUrl.toString(),fit: BoxFit.cover,)),
                                       Text(book.desc.toString(),style: TextStyle(fontSize: 18),),
                                       SizedBox(height: 30,),
-                                      Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.lightBlue,
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                  width: 300,
-                                  height: 40,
-                                  child: ElevatedButton(
-                                    onPressed: (){
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => PDFViewer(book: book,),
+                                      SizedBox(
+                                        width: 300,
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(primary: Color(0xff212121)
+                                          ),
+                                          onPressed: (){
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => PDFViewer(book: book,),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            'Read Now',
+                                            style: TextStyle(
+
+                                                fontSize: 18),
+                                          ),
                                         ),
-                                      );
-                                    },
-                                    child: Text(
-                                      'Read',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18),
-                                    ),
-                                  ),
                                       ),
                                       SizedBox(height: 10,),
 
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.lightBlue,
-                                          borderRadius: BorderRadius.circular(5),
-                                        ),
+                                      SizedBox(
                                         width: 300,
-                                        height: 40,
                                         child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            primary: Color(0xff212121)
+                                          ),
                                           onPressed: null,
                                           child: Text(
-                                            'Download',
+                                            'Add to Library',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 18),

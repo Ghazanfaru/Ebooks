@@ -1,5 +1,5 @@
+import 'package:ebooks_up/Controller/UserController.dart';
 import 'package:flutter/material.dart';
-import 'package:ebooks_up/model/UserModel.dart';
 class UpdateProfile extends StatefulWidget {
   static const String id='UpdateProfile';
   @override
@@ -9,7 +9,9 @@ class _AccountInfoState extends State<UpdateProfile> {
   @override
   int showpassword=1;
   int btntitle=0;
-  UserModel user=UserModel();
+  UserController user=UserController();
+  String? oldpass,ConfirmPass,Pass;
+
 
   String? name;
   Widget build(BuildContext context) {
@@ -101,6 +103,11 @@ onChanged: (value){
               SizedBox(height: 20,),
               TextField(textAlign: TextAlign.start,
                 obscureText: showpassword==1?true:false,
+                onChanged: (value){
+                setState(() {
+                  oldpass=value.toString();
+                });
+                },
                 toolbarOptions:const ToolbarOptions(
                     copy: true, cut: true, paste: true, selectAll: true),
                 decoration: InputDecoration(
@@ -132,7 +139,11 @@ onChanged: (value){
                 ),
               ),
               SizedBox(height: 30,),
-              TextField(textAlign: TextAlign.start,
+              TextField(
+                textAlign: TextAlign.start,
+                onChanged: (value){
+                  Pass=value.toString();
+                },
                 obscureText: showpassword==1?true:false,
                 toolbarOptions:const ToolbarOptions(
                     copy: true, cut: true, paste: true, selectAll: true),
@@ -167,6 +178,11 @@ onChanged: (value){
               ),
               SizedBox(height: 10,),
               TextField(textAlign: TextAlign.start,
+                onChanged: (value){
+                setState(() {
+                  ConfirmPass=value.toString();
+                });
+                },
                 obscureText: showpassword==1?true:false,
                 toolbarOptions:const ToolbarOptions(
                     copy: true, cut: true, paste: true, selectAll: true),
@@ -211,7 +227,20 @@ onChanged: (value){
                   child: TextButton(
                     child:btntitle==0?const Text('Change',style: TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.w400),):Container(width: 15,height: 25,child: CircularProgressIndicator(color: Colors.white,),),
                     onPressed: () {
-                    },
+                      if(Pass==ConfirmPass){
+                      user.updatePass(oldpass.toString(), Pass.toString());
+                    }
+                      else{
+                        showDialog(context: context, builder: (context){
+                          return AlertDialog(
+                            content: Text("Password Didn't Match"),
+                            actions: [
+                              TextButton(onPressed: ()=>Navigator.pop(context), child: Text("Try Again"))
+                            ],
+                          );
+                        });
+                      }
+                      },
                   ),
                 ),
               ),

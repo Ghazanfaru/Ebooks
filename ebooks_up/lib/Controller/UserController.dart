@@ -40,6 +40,15 @@ void login(UserModel userModel,BuildContext context)async{
    });
  }
 }
+
+void updatePass(String oldpass, String Pass)async{
+   User? user=await auth.currentUser;
+  AuthCredential credential=EmailAuthProvider.credential(email: user!.email.toString(), password: oldpass);
+  await user.reauthenticateWithCredential(credential).whenComplete(() {
+    user.updatePassword(Pass);
+  });
+
+}
 void forgotPass(String email,BuildContext context)async{
   await auth.sendPasswordResetEmail(email: email).onError((error, stackTrace) => showDialog(context: context, builder: (BuildContext context){
     return AlertDialog(
