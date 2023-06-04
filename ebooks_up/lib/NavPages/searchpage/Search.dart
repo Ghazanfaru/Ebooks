@@ -13,52 +13,52 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff212121),
+      backgroundColor: const Color(0xff212121),
       appBar: AppBar(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom:Radius.circular(15),
             )
         ),
         centerTitle: true,
         toolbarHeight: 70,
-        backgroundColor: Color(0xff1db954),
-        title:Text("Search"),),
+        backgroundColor: const Color(0xff1db954),
+        title:const Text("Search"),),
 
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Container(
-                padding: EdgeInsets.only(right: 30,left: 30),
+                padding: const EdgeInsets.only(right: 30,left: 30),
                 height: 40,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: TextField(
                   onSubmitted: (query){
-Navigator.push(context, new MaterialPageRoute(builder: (context)=> new Searchedbykey(query: query)));
+Navigator.push(context, MaterialPageRoute(builder: (context)=> Searchedbykey(query: query)));
                   },
                   decoration: InputDecoration(
-                    hintText: 'Search the World\'s most popular books',
-                    hintStyle: TextStyle(fontSize: 12,color: Color(0xff212121)),
-                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20),borderSide: BorderSide(color: Colors.black54,),
+                    hintText: 'Search',
+                    hintStyle: const TextStyle(fontSize: 12,color: Color(0xff212121)),
+                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20),borderSide: const BorderSide(color: Colors.black54,),
                     ),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                     focusColor: Colors.green,
                     fillColor: Colors.white,
-                    contentPadding: EdgeInsets.only(bottom: 10),
+                    contentPadding: const EdgeInsets.only(bottom: 10),
                     filled: true,
-                    prefixIcon: Icon(Icons.search,color: Color(0xff212121),),
+                    prefixIcon: const Icon(Icons.search,color: Color(0xff212121),),
 
                   ),),
               ),
-              SizedBox(height: 20,),
-              Container(padding: EdgeInsets.only(top: 20,bottom: 5,left: 20,right: 20),height: 50,child: Text('Browse All Interests',style: TextStyle(color: Color(0xffb3b3b3),fontWeight: FontWeight.bold,fontSize: 22),)),
-             SizedBox(height: 20,),
+              const SizedBox(height: 20,),
+              Container(padding: const EdgeInsets.only(top: 20,bottom: 5,left: 20,right: 20),height: 50,child: const Text('Browse All Interests',style: TextStyle(color: Color(0xffb3b3b3),fontWeight: FontWeight.bold,fontSize: 22),)),
+             const SizedBox(height: 20,),
               SearchClass(category: 'Business',),
               SearchClass(category: 'Career & Growth',),
               SearchClass(category: 'Finance and money management',),

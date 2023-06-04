@@ -5,7 +5,7 @@ import '../Librarypage/Library.dart';
 import '../searchpage/Search.dart';
 import '../TopChartsPage/TopCharts.dart';
 class Home extends StatefulWidget {
-   Home({Key? key}) : super(key: key);
+   const Home({Key? key}) : super(key: key);
    static const String id='Home';
   @override
   State<Home> createState() => _HomeState();
@@ -14,11 +14,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
    int _SelectedIndex=0;
 
-  List<Widget> _widgetOptions = <Widget>[
-    Homee(),
-    TopCharts(),
-    Search(),
-    Library(),
+  final List<Widget> _widgetOptions = <Widget>[
+    const Homee(),
+    const TopCharts(),
+    const Search(),
+    const Library(),
     Account(),
   ];
 
@@ -34,11 +34,11 @@ class _HomeState extends State<Home> {
       length: 5,
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color(0xff121212),
+          backgroundColor: const Color(0xff121212),
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Color(0xff1db954),
-          unselectedItemColor: Color(0xffb3b3b3),
-          items: [
+          selectedItemColor: const Color(0xff1db954),
+          unselectedItemColor: const Color(0xffb3b3b3),
+          items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home),label:'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.show_chart_sharp),label:'Top Charts'),
           BottomNavigationBarItem(icon: Icon(Icons.search),label:'Search',),

@@ -20,18 +20,18 @@ class _HomeeState extends State<Homee> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color(0xff1db954),
+          backgroundColor: const Color(0xff1db954),
           title: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 15,
                   bottom: 5,
                 ),
-                child: day.period==DayPeriod.am?Text(
+                child: day.period==DayPeriod.am?const Text(
                   'Good Morning!',
                   style: (TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.bold)),
-                ):Text(
+                ):const Text(
                   'Good Evening!',
                   style: (TextStyle(color: Color(0xffffffff),fontWeight: FontWeight.bold)),
                 )
@@ -41,7 +41,7 @@ class _HomeeState extends State<Homee> {
           actions: [
             IconButton(onPressed: (){
               Navigator.pushNamed(context, Notifications.id);
-            }, icon: Icon(Icons.notifications_active_outlined,size: 25,)),
+            }, icon: const Icon(Icons.notifications_active_outlined,size: 25,)),
           ],
           bottom: const TabBar(
             indicatorColor: Color(0xffb3b3b3),
@@ -63,7 +63,7 @@ class _HomeeState extends State<Homee> {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             ReadableBooks(),
             AudiableBooks(),

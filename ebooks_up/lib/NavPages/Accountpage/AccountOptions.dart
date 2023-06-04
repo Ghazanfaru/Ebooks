@@ -12,10 +12,10 @@ class AccountOptions extends StatelessWidget {
         GestureDetector(
           onTap: onpressed,
           child: Container(
-           margin: EdgeInsets.only(left: 10,right: 10),
+           margin: const EdgeInsets.only(left: 10,right: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
-              color: Color(0xffb3b3b3)
+              color: const Color(0xffb3b3b3)
             ),
 
             child: Row(

@@ -4,11 +4,9 @@ class AudioBooks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Color(0xff212121),
-      body:Container(
-        child:Center(child: Text('Audio Books')),
-      ),
+      body:Center(child: Text('Audio Books')),
     );
   }
 }

@@ -18,17 +18,17 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff212121),
+      backgroundColor: const Color(0xff212121),
       appBar: AppBar(
         toolbarHeight: 60,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom:Radius.circular(10),
             )
         ),
         centerTitle: true,
 
-        backgroundColor: Color(0xff1db954),
+        backgroundColor: const Color(0xff1db954),
         title: const Text(
           "Sign Up ",
           style: TextStyle(
@@ -45,7 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   onChanged: (value){
                     name=value.toString();
                   },
-                  cursorColor: Color( 0xffb3b3b3),
+                  cursorColor: const Color( 0xffb3b3b3),
                   maxLength: 30,
                   toolbarOptions:const ToolbarOptions(
                       copy: true, cut: true, paste: true, selectAll: true),
@@ -66,7 +66,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    fillColor: Color(0xff535353).withOpacity(0.5),
+                    fillColor: const Color(0xff535353).withOpacity(0.5),
                     contentPadding:const EdgeInsets.only(left: 20,bottom: 10),
                     filled: true,
                     suffixIcon:const Icon(Icons.person,color:Color(0xffb3b3b3),),
@@ -78,7 +78,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   onChanged: (value){
                     email=value.toString();
                   },
-                  cursorColor: Color( 0xffb3b3b3),
+                  cursorColor: const Color( 0xffb3b3b3),
                   keyboardType: TextInputType.emailAddress,
                   maxLength: 30,
                   toolbarOptions:const ToolbarOptions(
@@ -100,14 +100,14 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    fillColor:Color(0xff535353).withOpacity(0.5),
+                    fillColor:const Color(0xff535353).withOpacity(0.5),
                     contentPadding:const EdgeInsets.only(left: 20,bottom: 10),
                     filled: true,
                     suffixIcon:const Icon(Icons.person, color:Color(0xffb3b3b3),),
                   ),
                 ),
                 TextField(
-                  cursorColor: Color( 0xffb3b3b3),
+                  cursorColor: const Color( 0xffb3b3b3),
                   obscureText: showpassword==1?true:false,
                   onChanged: (value){
                     pass=value.toString();
@@ -130,7 +130,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    fillColor:Color(0xff535353).withOpacity(0.5),
+                    fillColor:const Color(0xff535353).withOpacity(0.5),
                       contentPadding:const EdgeInsets.only(left: 20,bottom: 10),
                       filled: true,
                       suffixIcon:IconButton(onPressed: (){
@@ -138,7 +138,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           showpassword=1-showpassword;
                         });
                       },
-                        icon:Icon(showpassword==0?Icons.visibility_outlined:Icons.visibility_off_outlined),color: Color(0xffb3b3b3),)
+                        icon:Icon(showpassword==0?Icons.visibility_outlined:Icons.visibility_off_outlined),color: const Color(0xffb3b3b3),)
                   ),
                 ),
                 const SizedBox(height: 15,),
@@ -146,7 +146,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   onChanged: (value){
                     cPass=value.toString();
                   },
-                  cursorColor: Color( 0xffb3b3b3),
+                  cursorColor: const Color( 0xffb3b3b3),
                   obscureText: showpassword==0?false:true,
                   toolbarOptions:const ToolbarOptions(
                       copy: true, cut: true, paste: true, selectAll: true),
@@ -167,7 +167,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    fillColor: Color(0xff535353).withOpacity(0.5),
+                    fillColor: const Color(0xff535353).withOpacity(0.5),
                     contentPadding:const EdgeInsets.only(left: 20,bottom: 10),
                     filled: true,
                     suffixIcon:IconButton(onPressed: (){
@@ -175,14 +175,14 @@ class _SignUpPageState extends State<SignUpPage> {
                         showpassword=1-showpassword;
                       });
                     },
-                        icon:Icon(showpassword==0?Icons.visibility_outlined:Icons.visibility_off_outlined),color: Color(0xffb3b3b3),)
+                        icon:Icon(showpassword==0?Icons.visibility_outlined:Icons.visibility_off_outlined),color: const Color(0xffb3b3b3),)
                   ),
                 ),
                 const SizedBox(height: 50,),
                 Center(
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Color(0xff1db954),
+                        color: const Color(0xff1db954),
                         borderRadius: BorderRadius.circular(30)
                     ),
                     height: 40,
@@ -209,12 +209,14 @@ class _SignUpPageState extends State<SignUpPage> {
                            );
                          }
                          }
-                        else showDialog(context: context, builder: (context)=>AlertDialog(
-                          content: Text("Password didn't match"),
+                        else {
+                          showDialog(context: context, builder: (context)=>AlertDialog(
+                          content: const Text("Password didn't match"),
                           actions: [
-                            ElevatedButton(onPressed: ()=>Navigator.pushNamed(context, SignUpPage.id), child: Text("Try Again"))
+                            ElevatedButton(onPressed: ()=>Navigator.pushNamed(context, SignUpPage.id), child: const Text("Try Again"))
                           ],
                         ));
+                        }
                       },
                     ),
                   ),

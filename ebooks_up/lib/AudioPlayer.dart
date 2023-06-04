@@ -18,12 +18,12 @@ class _AudioplayerState extends State<Audioplayer> {
   Duration? duration=Duration(seconds: 0);
 
   @override
-  void initState() {
+  void initState() async {
     super.initState();
-    initplayer();
+   await initplayer();
 
   }
-void initplayer() async{
+Future<void> initplayer() async{
   await player.setSourceUrl(widget.booksModel.fileUrl.toString());
   duration= await player.getDuration();
 }

@@ -1,5 +1,7 @@
+import kotlin.KotlinVersion
+
 buildscript {
-    ext.kotlin_version = '1.8.10'
+    ext.kotlin_version = '1.8.21'
     repositories {
         google()
         mavenCentral()

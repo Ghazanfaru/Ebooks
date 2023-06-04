@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'SelectCategory.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
 
 class TopCharts extends StatefulWidget {
   const TopCharts({Key? key}) : super(key: key);
@@ -9,14 +12,14 @@ class TopCharts extends StatefulWidget {
 }
 
 class _TopChartsState extends State<TopCharts> {
-  String dropdownvalue = 'formats';
-  var items = [
+  String type = 'formats';
+  var types = [
     'formats',
     'Text',
     'Audio',
   ];
-  String dropdownvaluee = 'categories';
-  var itemss = [
+  String category = 'categories';
+  var categories = [
     'categories',
     'Acedemics',
     'Novels',
@@ -24,35 +27,38 @@ class _TopChartsState extends State<TopCharts> {
     'General',
     'CS',
   ];
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff212121),
+      backgroundColor: const Color(0xff212121),
       appBar: AppBar(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom:Radius.circular(10),
             )
         ),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Top Charts',
           style: TextStyle(
           color: Colors.white, fontWeight: FontWeight.w400, fontSize: 20),
         ),
-        backgroundColor: Color(0xff1db954),
+        backgroundColor: const Color(0xff1db954),
       ),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(30, 20, 0, 0),
+        padding: const EdgeInsets.fromLTRB(30, 20, 0, 0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'The most popular books and audiobooks\nYou will find here for free with single click',
                 style: TextStyle(fontSize: 15,color: Color(0xffb3b3b3)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 22,
               ),
               Row(
@@ -60,8 +66,8 @@ class _TopChartsState extends State<TopCharts> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xff1db954),
-                      border: Border.all(color: Color(0xff1db954)),
+                      color: const Color(0xff1db954),
+                      border: Border.all(color: const Color(0xff1db954)),
                     ),
 
                     height: 35,
@@ -69,7 +75,7 @@ class _TopChartsState extends State<TopCharts> {
                       child: Padding(
                           padding: const EdgeInsets.only(left: 5, right: 5),
                           child: TextButton(
-                            child: Row(
+                            child: const Row(
                               children: [
                                 Text('Formats',style: TextStyle(color: Colors.white),),
                                 Icon(Icons.keyboard_arrow_down_outlined,color: Colors.white,)
@@ -78,7 +84,7 @@ class _TopChartsState extends State<TopCharts> {
                             onPressed: () {
                               showModalBottomSheet(
                                 backgroundColor: Colors.grey[200],
-                                  shape: RoundedRectangleBorder(
+                                  shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.vertical(
                                     top: Radius.circular(30),
                                   )
@@ -96,7 +102,7 @@ class _TopChartsState extends State<TopCharts> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Text(
+                                                const Text(
                                                   'Formats',
                                                   style: TextStyle(
                                                       color: Colors.black,
@@ -108,18 +114,18 @@ class _TopChartsState extends State<TopCharts> {
                                                   onPressed: (){
                                                     Navigator.pop(context);
                                                   },
-                                                  icon: Icon(
+                                                  icon: const Icon(
                                                     Icons.close,
                                                     size: 22,
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 30,
                                             ),
                                             Container(
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                 color: Colors.white,
                                                 boxShadow: [
                                                 BoxShadow(
@@ -132,17 +138,17 @@ class _TopChartsState extends State<TopCharts> {
 
                                               height: 170,
                                               width: 360,
-                                              padding: EdgeInsets.symmetric(vertical: 30),
+                                              padding: const EdgeInsets.symmetric(vertical: 30),
                                               child: Column(
                                                 children: [
                                                   Container(decoration: BoxDecoration(
-                                                    color: Color(0xff1db954),
+                                                    color: const Color(0xff1db954),
                                                     borderRadius: BorderRadius.circular(5),
                                                   ),
 
                                                       width: 300,
                                                       height: 40,
-                                                      child: ElevatedButton(
+                                                      child: const ElevatedButton(
                                                         onPressed: null,
                                                         child: Text(
                                                           'Books',
@@ -151,15 +157,15 @@ class _TopChartsState extends State<TopCharts> {
                                                               fontSize: 18),
                                                         ),
                                                       )),
-                                                  SizedBox(height: 30,),
+                                                  const SizedBox(height: 30,),
                                                   Container(
                                                       decoration: BoxDecoration(
-                                                        color: Color(0xff005C29),
+                                                        color: const Color(0xff005C29),
                                                         borderRadius: BorderRadius.circular(5),
                                                       ),
                                                       width: 300,
                                                       height: 40,
-                                                      child: ElevatedButton(
+                                                      child: const ElevatedButton(
                                                         onPressed: null,
                                                         child: Text(
                                                           'Audio Books',
@@ -172,7 +178,7 @@ class _TopChartsState extends State<TopCharts> {
                                               ),
                                             ),
 
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 20,
                                             )
                                           ],
@@ -182,21 +188,21 @@ class _TopChartsState extends State<TopCharts> {
                           )),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Color(0xff1db954)),
-                      color: Color(0xff1db954),
+                      border: Border.all(color: const Color(0xff1db954)),
+                      color: const Color(0xff1db954),
                     ),
                     height: 35,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 5, right: 5),
                       child: Center(
                           child: TextButton(
-                        child: Row(
+                        child: const Row(
                           children: [
                             Text('Categories',style: TextStyle(color: Colors.white),),
                             Icon(Icons.keyboard_arrow_down_outlined,color: Colors.white,),
@@ -205,7 +211,7 @@ class _TopChartsState extends State<TopCharts> {
                         onPressed: () {
                           showModalBottomSheet(
                             isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(30),
                               )),
@@ -221,7 +227,7 @@ class _TopChartsState extends State<TopCharts> {
                                           MainAxisAlignment
                                               .spaceBetween,
                                           children: [
-                                            Text(
+                                            const Text(
                                               'Categories',
                                               style: TextStyle(
                                                   color: Colors.black,
@@ -233,7 +239,7 @@ class _TopChartsState extends State<TopCharts> {
                                               onPressed: (){
                                                 Navigator.pop(context);
                                               },
-                                              icon: Icon(
+                                              icon: const Icon(
                                                 Icons.close,
                                                 size: 22,
                                               ),
@@ -241,7 +247,7 @@ class _TopChartsState extends State<TopCharts> {
                                           ],
                                         ),
                                       ),
-                                      Wrap(
+                                      const Wrap(
                                         spacing: 10,
                                         runSpacing: 10,
                                         children: [
@@ -263,7 +269,7 @@ class _TopChartsState extends State<TopCharts> {
 
                                         ],
                                       ),
-                                      SizedBox(height: 30,),
+                                      const SizedBox(height: 30,),
                                     ],
                                   ));
                         },
@@ -272,7 +278,7 @@ class _TopChartsState extends State<TopCharts> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
             ],
@@ -281,4 +287,13 @@ class _TopChartsState extends State<TopCharts> {
       ),
     );
   }
+
+  Stream<QuerySnapshot> getDocumentsStream(String category) {
+    return _firestore
+        .collection('text')
+        .where('category', isEqualTo: category)
+        .orderBy('rating', descending: true)
+        .snapshots();
+  }
+
 }

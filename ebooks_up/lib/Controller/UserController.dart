@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ebooks_up/model/UserModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class UserController{
 FirebaseAuth auth=FirebaseAuth.instance;
 FirebaseFirestore store=FirebaseFirestore.instance;
 String? Exception;
 String? id;
-GoogleSignIn _googleSignIn = GoogleSignIn();
+final GoogleSignIn _googleSignIn = GoogleSignIn();
 
 void register(UserModel userModel) async{
   try {
@@ -17,24 +19,21 @@ void register(UserModel userModel) async{
         email: userModel.email.toString(), password: userModel.pass.toString());
     id=user.user!.uid;
     setName(userModel.Uname.toString());
+    addUsername(userModel);
   } on FirebaseAuthException catch(e){
-    Exception=e.code;
+  Fluttertoast.showToast(msg: e.code.toString());
   }
 
 }
 void login(UserModel userModel,BuildContext context)async{
  try {
-   UserCredential user = await auth.signInWithEmailAndPassword(
-       email: userModel.email.toString(), password: userModel.pass.toString());
-  if(user!=null){
-    Navigator.pushReplacementNamed(context, Home.id);
-  }
+  Navigator.pushReplacementNamed(context, Home.id);
  }on FirebaseAuthException catch(e){
    showDialog(context: context, builder: (BuildContext context){
      return AlertDialog(
        content: Text(e.code),
        actions: [
-         TextButton(onPressed: (){Navigator.pop(context);}, child: Text("Try Again"))
+         TextButton(onPressed: (){Navigator.pop(context);}, child: const Text("Try Again"))
        ],
      );
    });
@@ -42,7 +41,7 @@ void login(UserModel userModel,BuildContext context)async{
 }
 
 void updatePass(String oldpass, String Pass)async{
-   User? user=await auth.currentUser;
+   User? user=auth.currentUser;
   AuthCredential credential=EmailAuthProvider.credential(email: user!.email.toString(), password: oldpass);
   await user.reauthenticateWithCredential(credential).whenComplete(() {
     user.updatePassword(Pass);
@@ -54,7 +53,7 @@ void forgotPass(String email,BuildContext context)async{
     return AlertDialog(
       content: Text(error.toString()),
       actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: Text("Try Again"))
+        TextButton(onPressed: () => Navigator.pop(context), child: const Text("Try Again"))
       ],
     );
   }));
@@ -78,7 +77,7 @@ Exception=e.code;
   }
 }
 String? getName(){
-  String? name= FirebaseAuth.instance.currentUser!.displayName.toString();
+  String? name= FirebaseAuth.instance.currentUser?.displayName.toString();
   return name;
 }
 
@@ -88,7 +87,10 @@ if(user!=null){
   await user.updateDisplayName(displaName);
 }
 }
-
+void clearPreferences() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.clear();
+}
 Future<UserCredential> signInWithGoogle(BuildContext context) async {
   // Trigger the Google authentication flow
   final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -97,14 +99,14 @@ Future<UserCredential> signInWithGoogle(BuildContext context) async {
     accessToken: googleAuth.accessToken,
     idToken: googleAuth.idToken,
   );
-  return await auth.signInWithCredential(credential).whenComplete(() => {
-  Navigator.pushReplacementNamed(context, Home.id)
-  }).catchError((){
+  return await auth.signInWithCredential(credential).whenComplete(() => Navigator.pushReplacementNamed(context, Home.id)
+  // ignore: argument_type_not_assignable_to_error_handler, body_might_complete_normally_catch_error
+  ).catchError((){
     showDialog(context: context, builder: (context){
       return AlertDialog(
-        content:Text("Sign In Failed"),
+        content:const Text("Sign In Failed"),
         actions: [
-          TextButton(onPressed:() => Navigator.pop(context), child: Text("Try Again"))
+          TextButton(onPressed:() => Navigator.pop(context), child: const Text("Try Again"))
         ],
       );
     });

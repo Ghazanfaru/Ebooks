@@ -94,7 +94,7 @@ class _SearchedState extends State<Searched> {
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
-                                                        builder: (context) => PDFViewer(book: book,),
+                                                        builder: (context) => PDFViewer(title: book.title.toString(),fileUrl: book.fileUrl.toString(),offline: false,),
                                                       ),
                                                     );
                                                   },
@@ -136,9 +136,6 @@ class _SearchedState extends State<Searched> {
                                 const SizedBox(height: 2,),
                                 Text(book.author,style: const TextStyle(fontSize: 11,fontWeight: FontWeight.w300),),
                                 const SizedBox(height: 2,),
-                                Container(
-                                  margin: EdgeInsets.only(left: 155),
-                                    child: Rating()),
                               ],
                             ),
                           ),

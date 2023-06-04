@@ -26,15 +26,15 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff212121),
+      backgroundColor: const Color(0xff212121),
       appBar: AppBar(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom:Radius.circular(10),
             )
         ),
         centerTitle: true,
-        backgroundColor: Color(0xff1db954),
+        backgroundColor: const Color(0xff1db954),
         title: const Text(
           "Sign In ",
           style: TextStyle(
@@ -48,8 +48,8 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 20,),
-                Container(child: Text("Sign In to continue.",style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold,)),),
+                const SizedBox(height: 20,),
+                Container(child: const Text("Sign In to continue.",style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold,)),),
                 const SizedBox(height: 50,),
                 TextField(
                   onChanged: (value){
@@ -77,13 +77,13 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    fillColor: Color(0xff535353).withOpacity(0.5),
+                    fillColor: const Color(0xff535353).withOpacity(0.5),
                     contentPadding:const EdgeInsets.only(left:20,bottom: 10),
                     filled: true,
-                    suffixIcon:Icon(Icons.email_outlined,color: Color(0xffb3b3b3),),
+                    suffixIcon:const Icon(Icons.email_outlined,color: Color(0xffb3b3b3),),
                   ),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 TextField(
                   onChanged: (value){
                     setState(() {
@@ -110,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    fillColor: Color(0xff535353).withOpacity(0.5),
+                    fillColor: const Color(0xff535353).withOpacity(0.5),
                     contentPadding:const EdgeInsets.only(left:20,bottom: 10),
                     filled: true,
                     suffixIcon: IconButton(onPressed: (){
@@ -118,17 +118,17 @@ class _LoginPageState extends State<LoginPage> {
                         showpassword=1-showpassword;
                       });
                     }, icon: Icon(showpassword==0?Icons.visibility_outlined:
-                    Icons.visibility_off_outlined),color: Color(0xffb3b3b3),),
+                    Icons.visibility_off_outlined),color: const Color(0xffb3b3b3),),
 
                   ),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 Row(
                   children: [
                     Checkbox(
-                      side: BorderSide(color: Colors.white70),
+                      side: const BorderSide(color: Colors.white70),
                         checkColor: Colors.black45,
-                        activeColor: Color(0xffb3b3b3),value: IsSelected, onChanged: ( bool? value){
+                        activeColor: const Color(0xffb3b3b3),value: IsSelected, onChanged: ( bool? value){
                       setState(() {
                         IsSelected=value!;
                  _handleRemeberme(IsSelected);
@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                       {
                        Navigator.pushNamed(context, ResetPage.id);
                       },
-                      child: Text(
+                      child: const Text(
                         'Forgot Password?',
                         style: TextStyle(
                             color:Color(0xffb3b3b3), fontWeight: FontWeight.w400),
@@ -153,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xff1db954),
+                      color: const Color(0xff1db954),
                       borderRadius: BorderRadius.circular(30)
                     ),
                     height: 40,
@@ -209,28 +209,28 @@ class _LoginPageState extends State<LoginPage> {
                             actions: [
                               Container(
                                   decoration: BoxDecoration(
-                                      color: Color(0xff005C29),
+                                      color: const Color(0xff005C29),
                                       borderRadius: BorderRadius.circular(30)
                                   ),
-                                  child: TextButton(onPressed: ()=> Navigator.pop(context), child: Text("Try Again")))
+                                  child: TextButton(onPressed: ()=> Navigator.pop(context), child: const Text("Try Again")))
                             ],
                           );
                         });
                       }
                       },
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15,vertical: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
                       width: 300,
                       height: 47,
                       decoration: BoxDecoration(
-                        boxShadow: [
+                        boxShadow: const [
                            BoxShadow(
                             color: Colors.white70,
                             offset: Offset(0.0, 1.0),
                             blurRadius: 6.0,
                           ),
                         ],
-                        color: Color(0xff212121),
+                        color: const Color(0xff212121),
                         borderRadius: BorderRadius.circular(50),
 
                       ),
@@ -279,11 +279,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _handleRemeberme(bool value) async {
     SharedPreferences preferences=await SharedPreferences.getInstance();
-    var _isChecked = value;
   preferences.setString("email", email);
   preferences.setString("pass", pass);
     setState(() {
-      _isChecked = value;
     });
   }
   void _loadUserEmailPassword() async {

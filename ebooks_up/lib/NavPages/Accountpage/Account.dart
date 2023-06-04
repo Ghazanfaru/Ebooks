@@ -16,15 +16,15 @@ UserModel model=UserModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff212121),
+      backgroundColor: const Color(0xff212121),
       appBar: AppBar(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom:Radius.circular(15),
             )
         ),
         centerTitle: true,
-        backgroundColor: Color(0xff1db954),
+        backgroundColor: const Color(0xff1db954),
         toolbarHeight: 60,
         title:const Text(
           'Account',
@@ -54,7 +54,7 @@ UserModel model=UserModel();
                   ),
                   Text(
                     'Hi, ${controller.getName()} !',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Color(0xffb3b3b3)),
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Color(0xffb3b3b3)),
                   ),
                 ],
               ),
@@ -65,7 +65,11 @@ UserModel model=UserModel();
             AccountOptions(name: 'Update Profile', onpressed: (){Navigator.pushNamed(context,UpdateProfile.id);},),
             AccountOptions(name: 'Downloads',onpressed: (){Navigator.pushNamed(context, Downloads.id);},),
             AccountOptions(name: 'Notification Settings', onpressed:(){Navigator.pushNamed(context, NotificationSettings.id);}),
-            AccountOptions(name: 'Log Out', onpressed: (){controller.logout();Navigator.pushReplacementNamed(context, LoginPage.id);}),
+            AccountOptions(name: 'Log Out', onpressed: (){
+              controller.clearPreferences();
+              controller.logout();Navigator.pushReplacementNamed(context, LoginPage.id);
+
+            }),
 
           ],
         ),
