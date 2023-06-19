@@ -1,7 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ebooks_up/AudioPlayer.dart';
+import 'package:ebooks_up/NavPages/HomePage/PDFViewer.dart';
+import 'package:ebooks_up/model/BooksModel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'SelectCategory.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 
 class TopCharts extends StatefulWidget {
@@ -12,23 +18,36 @@ class TopCharts extends StatefulWidget {
 }
 
 class _TopChartsState extends State<TopCharts> {
-  String type = 'formats';
-  var types = [
-    'formats',
-    'Text',
-    'Audio',
-  ];
-  String category = 'categories';
-  var categories = [
-    'categories',
-    'Acedemics',
-    'Novels',
-    'Science',
-    'General',
-    'CS',
+  String type = 'text';
+  String category = 'Career & Growth';
+  List<String> categories = [
+    'Career & Growth',
+    'Business',
+    'Finance ',
+    'Money Management',
+    'Politics',
+    'Philosophy',
+    'Foreign Language Studies',
+    'Law',
+    'Art',
+    'Self Improvement',
+    'Wellness',
+    'Science & Mathematics',
+    'Computers',
+    'History',
+    'Technology',
+    'Engineering',
+    'Religion',
+    'Horror fiction',
+    'Humor',
+    'Mystery',
+    'Poetry',
+    'Crime',
+    'Children'
   ];
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  Icon formatIcon=const Icon(Icons.multitrack_audio);
 
   @override
   Widget build(BuildContext context) {
@@ -37,263 +56,279 @@ class _TopChartsState extends State<TopCharts> {
       appBar: AppBar(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-              bottom:Radius.circular(10),
-            )
-        ),
+          bottom: Radius.circular(10),
+        )),
         centerTitle: true,
         title: const Text(
           'Top Charts',
           style: TextStyle(
-          color: Colors.white, fontWeight: FontWeight.w400, fontSize: 20),
+              color: Colors.white, fontWeight: FontWeight.w400, fontSize: 20),
         ),
         backgroundColor: const Color(0xff1db954),
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 20, 0, 0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'The most popular books and audiobooks\nYou will find here for free with single click',
-                style: TextStyle(fontSize: 15,color: Color(0xffb3b3b3)),
-              ),
-              const SizedBox(
-                height: 22,
-              ),
-              Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: const Color(0xff1db954),
-                      border: Border.all(color: const Color(0xff1db954)),
-                    ),
+      floatingActionButton:SpeedDial(
+        backgroundColor: Colors.green,
+        animatedIcon: AnimatedIcons.menu_close,
+        spaceBetweenChildren: 10,
+        children: [
+          SpeedDialChild(
+            child: type=='text'? const Icon(Icons.multitrack_audio):
+              const Icon(Icons.chrome_reader_mode),
+            label: 'Format',
+            onTap: (){
+              setState(() {
+                if(type=='text'){
+                  type='audio';
+                }
+                else if(type=='audio'){
+                  type='text';
+                }
+              });
 
-                    height: 35,
-                    child: Center(
-                      child: Padding(
-                          padding: const EdgeInsets.only(left: 5, right: 5),
-                          child: TextButton(
-                            child: const Row(
-                              children: [
-                                Text('Formats',style: TextStyle(color: Colors.white),),
-                                Icon(Icons.keyboard_arrow_down_outlined,color: Colors.white,)
-                              ],
-                            ),
-                            onPressed: () {
-                              showModalBottomSheet(
-                                backgroundColor: Colors.grey[200],
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(30),
-                                  )
-                                  ),
-                                  context: context,
-                                  builder: (context) => Padding(
-                                        padding: const EdgeInsets.all(20),
+            }
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.category_outlined),
+            label: 'Category',
+            onTap: () =>showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  padding: const EdgeInsets.all(16),
+                  child: GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 3,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    itemCount: categories.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final item = categories[index];
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            category= item;
+                          });
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          color: Colors.grey[300],
+                          child: Center(
+                            child: Text(item),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            )
+          )
+        ],
+      ),
+      body:StreamBuilder<QuerySnapshot<Map<String,dynamic>>>(
+          stream:_firestore.collection(type)
+              .where("category",isEqualTo:category)
+              .orderBy('rating',descending: true)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              Fluttertoast.showToast(msg: snapshot.error.toString());
+              print(snapshot.error);
+            }  if (snapshot.connectionState ==
+                ConnectionState.waiting) {
+              return const Text("Loading...");
+            }  if (snapshot.data!.docs.isEmpty) {
+              return const Text(
+                  'Books will be displayed on rating by users.'
+                      '\n As soon as users will give the rating top books will be displayed here'
+              );
+            } else {
+              return ListView.builder(
+                  itemCount: snapshot.data?.docs.length,
+                  itemBuilder: (context, index) {
+                    BooksModel book = BooksModel();
+                    book.id = snapshot.data?.docs[index].id;
+                    book.title =
+                        snapshot.data?.docs[index]['book_name'];
+                    book.category =
+                        snapshot.data?.docs[index]['category'];
+                    book.imgUrl = snapshot.data?.docs[index]['imgUrl'];
+                    book.desc =
+                        snapshot.data?.docs[index]['description'];
+                    book.author = snapshot.data?.docs[index]['author'];
+                    book.fileUrl =
+                        snapshot.data?.docs[index]['Fileurl'];
+                    return Container(
+                      padding: const EdgeInsets.only(top: 50,bottom: 10),
+                      decoration: const BoxDecoration(
+                          border: Border(
+                              top: BorderSide(
+                                  width: 1.0,
+                                  color: Colors.blueGrey
+                              )
+                          )
+                      ),
+                      child: CupertinoListTile(
+                        leading: Text(
+                          "${index + 1}.",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                        trailing:TextButton.icon(onPressed: null, icon: const Icon(Icons.star,color: Colors.orange,),
+                            label: Text("${snapshot.data?.docs[index]['rating']}",style: const TextStyle(
+                              color: Colors.white70
+                            ),)),
+                        title: InkWell(
+                          onTap: () {
+                            showModalBottomSheet<dynamic>(
+                                isDismissible: true,
+                                backgroundColor:
+                                    const Color(0xff212121),
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.vertical(
+                                  top: Radius.circular(30),
+                                )),
+                                context: context,
+                                builder: (context) => Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(50),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets
+                                                .symmetric(
+                                            vertical: 30,
+                                            horizontal: 30),
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisSize:
+                                              MainAxisSize.max,
                                           children: [
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                const Text(
-                                                  'Formats',
+                                                Text(
+                                                  book.title.toString(),
+                                                  style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w900,
+                                                      color: Colors.white),
+                                                ),
+                                                SizedBox(
+                                                  height: 50,
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(
+                                                          context);
+                                                    },
+                                                    icon:
+                                                        const Icon(
+                                                      Icons.close,
+                                                      color: Colors
+                                                          .white,
+                                                      size: 22,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Text(
+                                              book.desc.toString(),
+                                              style:
+                                                  const TextStyle(
+                                                      color: Colors
+                                                          .white,
+                                                      fontSize: 18),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            SizedBox(
+                                              width: 300,
+                                              child: ElevatedButton(
+                                                style: ElevatedButton
+                                                    .styleFrom(
+                                                        backgroundColor:
+                                                            Colors
+                                                                .blueGrey),
+                                                onPressed:
+                                                    () async {
+                                                  if (type ==
+                                                      'audio') {
+                                                    await Navigator
+                                                        .pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Audioplayer(
+                                                                offline: false,
+                                                                  booksModel: book)),
+                                                    );
+                                                  } else {
+                                                    await Navigator
+                                                        .pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) => PDFViewer(
+                                                              fileUrl: book
+                                                                  .fileUrl
+                                                                  .toString(),
+                                                              title: book
+                                                                  .title
+                                                                  .toString(),
+                                                              offline:
+                                                                  false, isBookmark: false, pageNo: 0,)),
+                                                    );
+                                                  }
+                                                },
+                                                child: type=='text'? const Text(
+                                                  'Read',
                                                   style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 22),
+                                                      fontSize: 18),
+                                                ):
+                                                const Text(
+                                                  'Play',
+                                                  style: TextStyle(
+                                                      fontSize: 18),
                                                 ),
-                                                IconButton(
-                                                  onPressed: (){
-                                                    Navigator.pop(context);
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.close,
-                                                    size: 22,
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
                                             const SizedBox(
-                                              height: 30,
+                                              height: 10,
                                             ),
-                                            Container(
-                                              decoration: const BoxDecoration(
-                                                color: Colors.white,
-                                                boxShadow: [
-                                                BoxShadow(
-                                                color: Colors.black54,
-                                                offset: Offset(0.0, 1.0),
-                                                blurRadius: 6.0,
-                                              ),
-                                              ],
-                                              ),
-
-                                              height: 170,
-                                              width: 360,
-                                              padding: const EdgeInsets.symmetric(vertical: 30),
-                                              child: Column(
-                                                children: [
-                                                  Container(decoration: BoxDecoration(
-                                                    color: const Color(0xff1db954),
-                                                    borderRadius: BorderRadius.circular(5),
-                                                  ),
-
-                                                      width: 300,
-                                                      height: 40,
-                                                      child: const ElevatedButton(
-                                                        onPressed: null,
-                                                        child: Text(
-                                                          'Books',
-                                                          style: TextStyle(
-                                                              color: Colors.white,
-                                                              fontSize: 18),
-                                                        ),
-                                                      )),
-                                                  const SizedBox(height: 30,),
-                                                  Container(
-                                                      decoration: BoxDecoration(
-                                                        color: const Color(0xff005C29),
-                                                        borderRadius: BorderRadius.circular(5),
-                                                      ),
-                                                      width: 300,
-                                                      height: 40,
-                                                      child: const ElevatedButton(
-                                                        onPressed: null,
-                                                        child: Text(
-                                                          'Audio Books',
-                                                          style: TextStyle(
-                                                              color: Colors.white,
-                                                              fontSize: 18),
-                                                        ),
-                                                      )),
-                                                ],
-                                              ),
-                                            ),
-
-                                            const SizedBox(
-                                              height: 20,
-                                            )
                                           ],
                                         ),
-                                      ));
-                            },
-                          )),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: const Color(0xff1db954)),
-                      color: const Color(0xff1db954),
-                    ),
-                    height: 35,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 5, right: 5),
-                      child: Center(
-                          child: TextButton(
-                        child: const Row(
-                          children: [
-                            Text('Categories',style: TextStyle(color: Colors.white),),
-                            Icon(Icons.keyboard_arrow_down_outlined,color: Colors.white,),
-                          ],
+                                      ),
+                                    ));
+                          },
+                          child: Row(
+                            children: [
+                              CachedNetworkImage(
+                                height: 80,
+                                  errorWidget: (context, url, error) => const Icon(Icons.error),
+
+                                  imageUrl: book.imgUrl.toString()),
+                              const SizedBox(width: 30,),
+                              Flexible(child: Text(book.title.toString(),
+                                style: const TextStyle(
+                                  color: Colors.white70
+                                ),
+                                overflow: TextOverflow.ellipsis,))
+                            ],
+                          ),
                         ),
-                        onPressed: () {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(30),
-                              )),
-                              context: context,
-                              builder: (context) => Column(
-                                mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(20),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .spaceBetween,
-                                          children: [
-                                            const Text(
-                                              'Categories',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight:
-                                                  FontWeight.bold,
-                                                  fontSize: 22),
-                                            ),
-                                            IconButton(
-                                              onPressed: (){
-                                                Navigator.pop(context);
-                                              },
-                                              icon: const Icon(
-                                                Icons.close,
-                                                size: 22,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const Wrap(
-                                        spacing: 10,
-                                        runSpacing: 10,
-                                        children: [
-                                          SelectCategoryButton(Txt: 'Business',),
-                                          SelectCategoryButton(Txt: 'Politics'),
-                                          SelectCategoryButton(Txt: 'Education'),
-                                          SelectCategoryButton(Txt: 'Business',),
-                                          SelectCategoryButton(Txt: 'Politics'),
-                                          SelectCategoryButton(Txt: 'Education'),
-                                          SelectCategoryButton(Txt: 'Business',),
-                                          SelectCategoryButton(Txt: 'Politics'),
-                                          SelectCategoryButton(Txt: 'Education'),
-                                          SelectCategoryButton(Txt: 'Business',),
-                                          SelectCategoryButton(Txt: 'Politics'),
-                                          SelectCategoryButton(Txt: 'Education'),
-                                          SelectCategoryButton(Txt: 'Business',),
-                                          SelectCategoryButton(Txt: 'Politics'),
-                                          SelectCategoryButton(Txt: 'Education'),
-
-                                        ],
-                                      ),
-                                      const SizedBox(height: 30,),
-                                    ],
-                                  ));
-                        },
-                      )),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-            ],
-          ),
-        ),
-      ),
+                      ),
+                    );
+                  });
+            }
+          }),
     );
   }
 
-  Stream<QuerySnapshot> getDocumentsStream(String category) {
-    return _firestore
-        .collection('text')
-        .where('category', isEqualTo: category)
-        .orderBy('rating', descending: true)
-        .snapshots();
-  }
 
 }

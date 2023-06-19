@@ -19,10 +19,10 @@ class _SearchedState extends State<Searched> {
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
-      backgroundColor: Color(0xff212121),
+      backgroundColor: const Color(0xff212121),
       appBar: AppBar(
         title: Text(widget.category),
-        backgroundColor:  Color(0xff1db954),
+        backgroundColor:  const Color(0xff1db954),
       ),
         body: StreamBuilder<QuerySnapshot<Map<String,dynamic>>>(
             stream: store.collection('text').where('category',isEqualTo: widget.category).snapshots(),
@@ -53,7 +53,7 @@ class _SearchedState extends State<Searched> {
                                 InkWell(child: Container(child: Column(
                                   children: [
                                     Image.network(book.imgUrl.toString(),width: 100,height: 130,),
-                                    SizedBox(height: 15,),
+                                    const SizedBox(height: 15,),
                                     Text(book.title.toString(),style:const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
 
                                   ],
@@ -72,16 +72,16 @@ class _SearchedState extends State<Searched> {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text(book.title.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
-                                                  IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.close,size: 22,),),
+                                                  Text(book.title.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
+                                                  IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.close,size: 22,),),
 
                                                 ],),
                                               Container(
                                                   width: 100,
                                                   height: 150,
                                                   child: Image.network(book.imgUrl.toString(),fit: BoxFit.cover,)),
-                                              Text(book.desc.toString(),style: TextStyle(fontSize: 18),),
-                                              SizedBox(height: 30,),
+                                              Text(book.desc.toString(),style: const TextStyle(fontSize: 18),),
+                                              const SizedBox(height: 30,),
                                               Container(
                                                 decoration: BoxDecoration(
                                                   color: Colors.lightBlue,
@@ -94,11 +94,11 @@ class _SearchedState extends State<Searched> {
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
-                                                        builder: (context) => PDFViewer(title: book.title.toString(),fileUrl: book.fileUrl.toString(),offline: false,),
+                                                        builder: (context) => PDFViewer(title: book.title.toString(),fileUrl: book.fileUrl.toString(),offline: false, isBookmark: false,pageNo: 0,),
                                                       ),
                                                     );
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     'Read',
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -106,7 +106,7 @@ class _SearchedState extends State<Searched> {
                                                   ),
                                                 ),
                                               ),
-                                              SizedBox(height: 10,),
+                                              const SizedBox(height: 10,),
 
                                               Container(
                                                 decoration: BoxDecoration(
@@ -115,7 +115,7 @@ class _SearchedState extends State<Searched> {
                                                 ),
                                                 width: 300,
                                                 height: 40,
-                                                child: ElevatedButton(
+                                                child: const ElevatedButton(
                                                   onPressed: null,
                                                   child: Text(
                                                     'Download',
@@ -144,7 +144,7 @@ class _SearchedState extends State<Searched> {
                   );
                 }
               }
-              return Center(child: Text("Check Internet Connection"),);
+              return const Center(child: Text("Check Internet Connection"),);
             }
         ),
 

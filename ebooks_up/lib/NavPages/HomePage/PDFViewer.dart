@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:ebooks_up/main.dart';
-import 'package:flutter/foundation.dart';
+import 'package:ebooks_up/model/Bookmark.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 // ignore: must_be_immutable
 class PDFViewer extends StatefulWidget {
@@ -17,7 +17,16 @@ class PDFViewer extends StatefulWidget {
   String fileUrl;
   String title;
   bool offline;
-  PDFViewer({Key? key, required this.fileUrl,required this.title, required this.offline}) : super(key: key);
+  bool isBookmark;
+  int pageNo;
+  PDFViewer(
+      {Key? key,
+      required this.fileUrl,
+      required this.title,
+      required this.offline,
+      required this.isBookmark,
+      required this.pageNo})
+      : super(key: key);
 
   @override
   State<PDFViewer> createState() => _PDFViewerState();
@@ -32,11 +41,23 @@ class _PDFViewerState extends State<PDFViewer> {
   String? text;
   String? filePath;
   bool play = false;
+  var box;
+  Future<void> openbox() async {
+    box = await Hive.openBox<Bookmark>(RBM);
+  }
+
   @override
   void initState() {
     super.initState();
     downloadFile(widget.fileUrl);
+    openbox();
+    jumpTobookmark();
   }
+  void  jumpTobookmark(){
+  if(widget.isBookmark){
+  pdfViewerController.jumpToPage(widget.pageNo);
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +70,10 @@ class _PDFViewerState extends State<PDFViewer> {
                   },
                   icon: const Icon(Icons.table_rows)),
               IconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     final currentPage = pdfViewerController.pageNumber;
-                    setBookMark(currentPage, widget.title);
+                    await saveTobookmark(
+                        currentPage, widget.title, widget.fileUrl);
                   },
                   icon: const Icon(Icons.bookmark_border_rounded)),
               IconButton(
@@ -59,18 +81,16 @@ class _PDFViewerState extends State<PDFViewer> {
                     setState(() {
                       if (!play) {
                         play = true;
-                      }
-                      else {
-                        play=false;
+                      } else {
+                        play = false;
                       }
                     });
                     Text_Speech(pdfViewerController.pageNumber);
-
                   },
                   icon: play
-                       ? const Icon(Icons.record_voice_over)
-                      :const Icon(Icons.record_voice_over_outlined)
-              ) ],
+                      ? const Icon(Icons.record_voice_over)
+                      : const Icon(Icons.record_voice_over_outlined))
+            ],
             title: Text(
               widget.title,
               style: const TextStyle(
@@ -79,50 +99,48 @@ class _PDFViewerState extends State<PDFViewer> {
                   fontWeight: FontWeight.bold),
             ),
             backgroundColor: const Color(0xff535353)),
-        body: widget.offline?SfPdfViewer.file(
-          File(widget.fileUrl),
-          scrollDirection: PdfScrollDirection.horizontal,
-          key: _pdfViewerKey,
-          controller: pdfViewerController,
-          pageLayoutMode: PdfPageLayoutMode.single,
-          onPageChanged: (page){
-            flutterTts.stop();
-            setState(() {
-              if(play){
-                play=false;
-              }
-            });
+        body: widget.offline
+            ? SfPdfViewer.file(
+                File(widget.fileUrl),
+                scrollDirection: PdfScrollDirection.horizontal,
+                key: _pdfViewerKey,
+                controller: pdfViewerController,
+                pageLayoutMode: PdfPageLayoutMode.single,
 
-            },
+                onPageChanged: (page) {
+                  flutterTts.stop();
 
-        ):SfPdfViewer.network(
-          widget.fileUrl,
-          scrollDirection: PdfScrollDirection.horizontal,
-          key: _pdfViewerKey,
-          controller: pdfViewerController,
-          pageLayoutMode: PdfPageLayoutMode.single,
-            onPageChanged: (page){
-              flutterTts.stop();
-              setState(() {
-                if(play){
-                  play=false;
-                }
-              });
+                    if (play) {
+                      setState(() {
+                        play = false;
+                      });
+                    }
 
-            }
-        )
-    );
+                },
+              )
+            : SfPdfViewer.network(widget.fileUrl,
+                scrollDirection: PdfScrollDirection.horizontal,
+                key: _pdfViewerKey,
+                controller: pdfViewerController,
+                pageLayoutMode: PdfPageLayoutMode.single,
+                onPageChanged: (page) {
+                flutterTts.stop();
+                setState(() {
+                  if (play) {
+                    play = false;
+                  }
+                });
+              }));
   }
-
 
   Future<void> Text_Speech(int pageNo) async {
     PdfDocument document;
-    if(widget.offline){
-      document=PdfDocument(inputBytes: File(widget.fileUrl).readAsBytesSync());
-    }
-    else {
+    if (widget.offline) {
       document =
-      PdfDocument(inputBytes: File(filePath.toString()).readAsBytesSync());
+          PdfDocument(inputBytes: File(widget.fileUrl).readAsBytesSync());
+    } else {
+      document =
+          PdfDocument(inputBytes: File(filePath.toString()).readAsBytesSync());
     }
     text = PdfTextExtractor(document).extractText(startPageIndex: pageNo - 1);
 
@@ -147,17 +165,35 @@ class _PDFViewerState extends State<PDFViewer> {
     }
   }
 
-  Future<void> setBookMark(int pageNo,String title)async{
-    await Hive.box(Bookmarks).putAll({
-      'title':"Last Read: $title",
-      'page_no':pageNum
-    }).whenComplete(() => Fluttertoast.showToast(msg: "BookMark Added")).onError((error, stackTrace) => Fluttertoast.showToast(msg: "Couldn't save bookmark please try again")
-    );
-  }
-
   Future<void> HighlightSpeech() async {
     flutterTts.setProgressHandler((text, start, end, word) {
       setState(() {});
     });
+  }
+
+  Future<void> saveTobookmark(
+      int currentPage, String title, String fileUrl) async {
+    String filePath = await downloadAndSaveFile(fileUrl, title);
+    var bookmark =
+        Bookmark(title: title, currentPage: currentPage, fileUrl: filePath);
+    box.add(bookmark).whenComplete(() {
+      Fluttertoast.showToast(msg: "BookMark Added");
+      setState(() {
+        // added = true;
+      });
+    }).onError((error, r) async {
+      await Fluttertoast.showToast(msg: error.toString());
+      throw error.toString();
+    });
+  }
+
+  Future<String> downloadAndSaveFile(String fileUrl, String fileName) async {
+    final Directory appDirectory = await getApplicationDocumentsDirectory();
+    final File file = File('${appDirectory.path}/$fileName');
+    await firebase_storage.FirebaseStorage.instance
+        .refFromURL(fileUrl)
+        .writeToFile(file);
+
+    return file.path;
   }
 }

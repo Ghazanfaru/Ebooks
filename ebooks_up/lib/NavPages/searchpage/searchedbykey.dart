@@ -2,10 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../model/BooksModel.dart';
 import '../HomePage/PDFViewer.dart';
-import '../TopChartsPage/Rating.dart';
+
 class Searchedbykey extends StatefulWidget {
   var query;
-
   static String id='SearchedPage';
 
   Searchedbykey({Key? key,required this.query}) : super(key: key);
@@ -19,10 +18,10 @@ class _SearchedbykeyState extends State<Searchedbykey> {
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
-      backgroundColor: Color(0xffE2E5DE),
+      backgroundColor: const Color(0xffE2E5DE),
       appBar: AppBar(
-        title: Text("Explore Books"),
-        backgroundColor:  Color(0xff005C29),
+        title: const Text("Explore Books"),
+        backgroundColor:  const Color(0xff005C29),
       ),
       body: StreamBuilder<QuerySnapshot<Map<String,dynamic>>>(
           stream: store.collection('text').where('keywords', arrayContainsAny: widget.query.split(' ')).snapshots(),
@@ -71,16 +70,16 @@ class _SearchedbykeyState extends State<Searchedbykey> {
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Text(book.title.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
-                                                IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.close,size: 22,),),
+                                                Text(book.title.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
+                                                IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.close,size: 22,),),
 
                                               ],),
                                             Container(
                                                 width: 100,
                                                 height: 150,
                                                 child: Image.network(book.imgUrl.toString(),fit: BoxFit.cover,)),
-                                            Text(book.desc.toString(),style: TextStyle(fontSize: 18),),
-                                            SizedBox(height: 30,),
+                                            Text(book.desc.toString(),style: const TextStyle(fontSize: 18),),
+                                            const SizedBox(height: 30,),
                                             Container(
                                               decoration: BoxDecoration(
                                                 color: Colors.lightBlue,
@@ -93,11 +92,11 @@ class _SearchedbykeyState extends State<Searchedbykey> {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                      builder: (context) => PDFViewer(title: book.title.toString(),fileUrl:book.fileUrl.toString(),offline: false,),
+                                                      builder: (context) => PDFViewer(title: book.title.toString(),fileUrl:book.fileUrl.toString(),offline: false, isBookmark: false, pageNo: 0,),
                                                     ),
                                                   );
                                                 },
-                                                child: Text(
+                                                child: const Text(
                                                   'Read',
                                                   style: TextStyle(
                                                       color: Colors.white,
@@ -105,7 +104,7 @@ class _SearchedbykeyState extends State<Searchedbykey> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 10,),
+                                            const SizedBox(height: 10,),
 
                                             Container(
                                               decoration: BoxDecoration(
@@ -114,7 +113,7 @@ class _SearchedbykeyState extends State<Searchedbykey> {
                                               ),
                                               width: 300,
                                               height: 40,
-                                              child: ElevatedButton(
+                                              child: const ElevatedButton(
                                                 onPressed: null,
                                                 child: Text(
                                                   'Download',
@@ -143,7 +142,7 @@ class _SearchedbykeyState extends State<Searchedbykey> {
                 );
               }
             }
-            return Center(child: Text("Check Internet Connection"),);
+            return const Center(child: Text("Check Internet Connection"),);
           }
       ),
     );

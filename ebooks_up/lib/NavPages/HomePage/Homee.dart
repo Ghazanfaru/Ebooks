@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ebooks_up/Notifications.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'AudiableBooks/AuidableBooks.dart';
 import 'ReadableBooks/ReadableBooks.dart';
@@ -12,6 +14,19 @@ class Homee extends StatefulWidget {
 
 class _HomeeState extends State<Homee> {
   TimeOfDay day=TimeOfDay.now();
+  Icon notificationIcon=const Icon(Icons.notifications_none);
+  Stream<QuerySnapshot<Map<String,dynamic>>> notficiations=FirebaseFirestore.instance.collection('news').snapshots();
+
+  Future<void> updateIcon()async{
+    notficiations.listen((event) {
+      if(event.docs.isNotEmpty){
+        setState(() {
+           notificationIcon=const Icon(Icons.notifications_active_rounded);
+        });
+      }
+      updateIcon();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +56,7 @@ class _HomeeState extends State<Homee> {
           actions: [
             IconButton(onPressed: (){
               Navigator.pushNamed(context, Notifications.id);
-            }, icon: const Icon(Icons.notifications_active_outlined,size: 25,)),
+            }, icon: notificationIcon,)
           ],
           bottom: const TabBar(
             indicatorColor: Color(0xffb3b3b3),

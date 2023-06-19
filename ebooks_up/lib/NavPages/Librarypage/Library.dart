@@ -41,12 +41,16 @@ class _SavedState extends State<Library> {
         body: TabBarView(
 
           children: [
-            Hive.box<SavedBook>(Rbooks).isEmpty?Container(
+            Hive.box<SavedBook>(Rbooks).isEmpty?
+            Container(
                 color: const Color(0xff212121),
-                child: const Center(child: Text("No Books in Library",style: TextStyle(color: Colors.white70),),)):const TextBooks(),
-            Hive.box<SavedBook>(Abooks).isEmpty?Container(
+                child: const Center(child: Text("You have no saved content!",style: TextStyle(color: Colors.white70),),)):
+            const TextBooks(),
+            Hive.box<SavedBook>(Abooks).isEmpty?
+            Container(
                 color: const Color(0xff212121),
-                child: const Center(child: Text("No Books in Library",style: TextStyle(color: Colors.white70),),)):const AudioBooks(),
+                child: const Center(child: Text("You have no saved content!",style: TextStyle(color: Colors.white70),),)):
+            const AudioBooks(),
 
           ],
         ),
