@@ -5,6 +5,7 @@ import 'package:audioplayers/audioplayers.dart';
 
 class Audioplayer extends StatefulWidget {
   BooksModel booksModel = BooksModel();
+
   bool offline;
   Audioplayer({Key? key, required this.booksModel,required this.offline}) : super(key: key);
 

@@ -20,19 +20,22 @@ class BookmarkAdapter extends TypeAdapter<Bookmark> {
       title: fields[0] as String,
       currentPage: fields[1] as int,
       fileUrl: fields[2] as String,
+      added: fields[3] as bool
     );
   }
 
   @override
   void write(BinaryWriter writer, Bookmark obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
       ..write(obj.currentPage)
       ..writeByte(2)
-      ..write(obj.fileUrl);
+      ..write(obj.fileUrl)
+      ..writeByte(3)
+      ..write(obj.added);
   }
 
   @override

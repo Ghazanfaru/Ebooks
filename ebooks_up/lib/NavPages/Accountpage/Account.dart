@@ -8,10 +8,8 @@ import 'package:ebooks_up/Login/LoginPage.dart';
 import 'package:ebooks_up/model/UserModel.dart';
 
 class Account extends StatelessWidget {
-
-UserController controller=UserController();
-UserModel model=UserModel();
-
+  UserController controller = UserController();
+  UserModel model = UserModel();
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +18,12 @@ UserModel model=UserModel();
       appBar: AppBar(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-              bottom:Radius.circular(15),
-            )
-        ),
+          bottom: Radius.circular(15),
+        )),
         centerTitle: true,
         backgroundColor: const Color(0xff1db954),
         toolbarHeight: 60,
-        title:const Text(
+        title: const Text(
           'Account',
           style: TextStyle(
               fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
@@ -54,7 +51,10 @@ UserModel model=UserModel();
                   ),
                   Text(
                     'Hi, ${controller.getName()} !',
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Color(0xffb3b3b3)),
+                    style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xffb3b3b3)),
                   ),
                 ],
               ),
@@ -62,15 +62,30 @@ UserModel model=UserModel();
             const Divider(
               height: 10,
             ),
-            AccountOptions(name: 'Update Profile', onpressed: (){Navigator.pushNamed(context,UpdateProfile.id);},),
-            AccountOptions(name: 'Downloads',onpressed: (){Navigator.pushNamed(context, Downloads.id);},),
-            AccountOptions(name: 'Notification Settings', onpressed:(){Navigator.pushNamed(context, NotificationSettings.id);}),
-            AccountOptions(name: 'Log Out', onpressed: (){
-              controller.clearPreferences();
-              controller.logout();Navigator.pushReplacementNamed(context, LoginPage.id);
-
-            }),
-
+            AccountOptions(
+              name: 'Update Profile',
+              onpressed: () {
+                Navigator.pushNamed(context, UpdateProfile.id);
+              },
+            ),
+            AccountOptions(
+              name: 'Downloads',
+              onpressed: () {
+                Navigator.pushNamed(context, Downloads.id);
+              },
+            ),
+            AccountOptions(
+                name: 'Notification Settings',
+                onpressed: () {
+                  Navigator.pushNamed(context, NotificationSettings.id);
+                }),
+            AccountOptions(
+                name: 'Log Out',
+                onpressed: () {
+                  controller.clearPreferences();
+                  controller.logout();
+                  Navigator.pushReplacementNamed(context, LoginPage.id);
+                }),
           ],
         ),
       ),

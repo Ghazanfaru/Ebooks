@@ -1,5 +1,6 @@
 
 import 'package:ebooks_up/main.dart';
+import 'package:ebooks_up/model/Bookmark.dart';
 import 'package:ebooks_up/model/SavedBook.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -41,7 +42,7 @@ class _SavedState extends State<Library> {
         body: TabBarView(
 
           children: [
-            Hive.box<SavedBook>(Rbooks).isEmpty?
+            Hive.box<SavedBook>(Rbooks).isEmpty && Hive.box<Bookmark>(RBM).isEmpty?
             Container(
                 color: const Color(0xff212121),
                 child: const Center(child: Text("You have no saved content!",style: TextStyle(color: Colors.white70),),)):

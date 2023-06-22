@@ -22,13 +22,14 @@ class SavedBookAdapter extends TypeAdapter<SavedBook> {
       fields[2] as String,
       fields[3] as String,
       fields[4] as String,
+      fields[5] as bool
     );
   }
 
   @override
   void write(BinaryWriter writer, SavedBook obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.bookId)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class SavedBookAdapter extends TypeAdapter<SavedBook> {
       ..writeByte(3)
       ..write(obj.imgUrl)
       ..writeByte(4)
-      ..write(obj.bookType);
+      ..write(obj.bookType)
+      ..writeByte(5)
+      ..write(obj.added);
   }
 
   @override

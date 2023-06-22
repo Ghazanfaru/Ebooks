@@ -175,25 +175,27 @@ class _PDFViewerState extends State<PDFViewer> {
       int currentPage, String title, String fileUrl) async {
     String filePath = await downloadAndSaveFile(fileUrl, title);
     var bookmark =
-        Bookmark(title: title, currentPage: currentPage, fileUrl: filePath);
+        Bookmark(title: title, currentPage: currentPage, fileUrl: filePath,added: true);
     box.add(bookmark).whenComplete(() {
       Fluttertoast.showToast(msg: "BookMark Added");
       setState(() {
         // added = true;
       });
-    }).onError((error, r) async {
-      await Fluttertoast.showToast(msg: error.toString());
-      throw error.toString();
     });
-  }
+        }
 
   Future<String> downloadAndSaveFile(String fileUrl, String fileName) async {
-    final Directory appDirectory = await getApplicationDocumentsDirectory();
-    final File file = File('${appDirectory.path}/$fileName');
-    await firebase_storage.FirebaseStorage.instance
-        .refFromURL(fileUrl)
-        .writeToFile(file);
-
-    return file.path;
+    File file;
+    if(!widget.offline) {
+      final Directory appDirectory = await getApplicationDocumentsDirectory();
+       file = File('${appDirectory.path}/$fileName');
+      await firebase_storage.FirebaseStorage.instance
+          .refFromURL(fileUrl)
+          .writeToFile(file);
+      return file.path;
+    }
+    else {
+      return widget.fileUrl.toString();
+    }
   }
 }

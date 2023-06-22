@@ -13,5 +13,8 @@ class Bookmark extends HiveObject {
   @HiveField(2)
   late String fileUrl;
 
-  Bookmark({required this.title, required this.currentPage,required this.fileUrl});
+  @HiveField(3)
+  late bool added;
+
+  Bookmark({required this.title, required this.currentPage,required this.fileUrl,required this.added});
 }

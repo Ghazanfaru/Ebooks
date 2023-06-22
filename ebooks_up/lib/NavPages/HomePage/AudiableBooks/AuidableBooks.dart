@@ -12,6 +12,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../../model/BooksModel.dart';
 import '../../TopChartsPage/Rating.dart';
+import '../BookTile.dart';
 
 
 class AudiableBooks extends StatefulWidget {
@@ -22,59 +23,28 @@ class AudiableBooks extends StatefulWidget {
 
 class _AudiableBooksState extends State<AudiableBooks> {
   FirebaseFirestore store = FirebaseFirestore.instance;
-
-  List<String> categories = [
-    'Career & Growth',
-    'Business',
-    'Finance ',
-    'Money Management',
-    'Politics',
-    'Philosophy',
-    'Foreign Language Studies',
-    'Law',
-    'Art',
-    'Self Improvement',
-    'Wellness',
-    'Science & Mathematics',
-    'Computers',
-    'History',
-    'Technology',
-    'Engineering',
-    'Religion',
-    'Horror fiction',
-    'Humor',
-    'Mystery',
-    'Poetry',
-    'Crime',
-    'Children'
-  ];
-
   var category = 'Career & Growth';
-
-  late bool added;
+  var category2 = 'Career & Growth';
+  var category3 = 'Career & Growth';
+  var category4 = 'Career & Growth';
+  var category5 = 'Career & Growth';
+  bool added=false;
 
   var box;
   Future<void> OpenBox()async{
-    box= await  Hive.openBox<SavedBook>(Abooks);
+      box= await  Hive.openBox<SavedBook>(Abooks);
   }
   @override
   void initState() {
     // TODO: implement initState
-
-    super.initState();
     OpenBox();
+    super.initState();
+
   }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
         backgroundColor: const Color(0xff212121),
-        floatingActionButton: FloatingActionButton(onPressed: (){
-          ShowCategory();
-        },
-          backgroundColor: Colors.green,
-          splashColor: Colors.white,
-          child: const Icon(Icons.category),
-        ),
         body: Center(
           child:StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: store
@@ -95,219 +65,344 @@ class _AudiableBooksState extends State<AudiableBooks> {
                 } else if (snapshot.connectionState ==
                     ConnectionState.active) {
                   if (snapshot.hasData) {
-                    return ListView.builder(
-                        itemCount: snapshot.data?.docs.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          BooksModel book = BooksModel();
-                          var document = snapshot.data?.docs[index];
-                          if(document.exists){
-                            book.id = snapshot.data?.docs[index].id;
-                            book.title =
-                            snapshot.data?.docs[index]['book_name'];
-                            book.category =
-                            snapshot.data?.docs[index]['category'];
-                            book.imgUrl =
-                            snapshot.data?.docs[index]['imgUrl'];
-                            book.desc =
-                            snapshot.data?.docs[index]['description'];
-                            book.author =
-                            snapshot.data?.docs[index]['author'];
-                            book.fileUrl =
-                            snapshot.data?.docs[index]['Fileurl'];
-                            return Container(
-                                padding: const EdgeInsets.only(top: 30,bottom: 10),
-                                decoration: const BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            width: 1.0,
-                                            color: Colors.blueGrey
-                                        )
-                                    )
-                                ),
-                                child: CupertinoListTile(
-                                  subtitle: InkWell(
-                                      child: Rating(
-                                          type: 'audio',
-                                          documentID: book.id.toString(),
-                                          oldRating: book.rating ?? 0)),
-                                  trailing: SizedBox(
-                                    height: 80,
-                                    width: 100,
-                                    child: CachedNetworkImage(
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                    return ListView(
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        const SizedBox(height: 10,),
+                        Container(
+                          decoration:const BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: Colors.grey,
+                                      width: 2
+                                  )
+                              )
+                          ),
+                          padding: const EdgeInsets.only(right: 200),
+                          child: Text(category,style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800
+                          ),),
+                        ),
+                        const SizedBox(height: 20,),
+                        SizedBox(
+                          height: 180,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data?.docs.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                BooksModel book = BooksModel();
+                                var document = snapshot.data?.docs[index];
+                                if (document.exists) {
+                                  book.id = snapshot.data?.docs[index].id;
+                                  book.title =
+                                  snapshot.data?.docs[index]['book_name'];
+                                  book.category =
+                                  snapshot.data?.docs[index]['category'];
+                                  book.imgUrl = snapshot.data?.docs[index]['imgUrl'];
+                                  book.desc =
+                                  snapshot.data?.docs[index]['description'];
+                                  book.author = snapshot.data?.docs[index]['author'];
+                                  book.fileUrl =
+                                  snapshot.data?.docs[index]['Fileurl'];
+                                  return Row(
+                                    children: [
+                                      Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey.withOpacity(0.2),
+                                              border: const Border(
+                                                  left: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.black87
+                                                  )
+                                              )
+                                          ),
+                                          padding: const EdgeInsets.only(left: 10,right: 10,),
+                                          height: 250,
+                                          width: 100,
+                                          child: BookTile(book: book, type: 'audio')),
+                                      const SizedBox(width: 10,)
+                                    ],
+                                  );
+                                } else {
+                                  return const SizedBox.shrink();
+                                }
+                              }),
+                        ),
+                        const SizedBox(height: 10,),
+                        const Divider(
+                          height: 5,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(height: 20,),
+                        Container(
+                          decoration:const BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: Colors.grey,
+                                      width: 2
+                                  )
+                              )
+                          ),
+                          padding: const EdgeInsets.only(right: 200),
+                          child: Text(category2,style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800
+                          ),),
+                        ),
+                        const SizedBox(height: 20,),
+                        SizedBox(
+                          height: 180,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data?.docs.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                BooksModel book = BooksModel();
+                                var document = snapshot.data?.docs[index];
+                                if (document.exists) {
+                                  book.id = snapshot.data?.docs[index].id;
+                                  book.title =
+                                  snapshot.data?.docs[index]['book_name'];
+                                  book.category =
+                                  snapshot.data?.docs[index]['category'];
+                                  book.imgUrl = snapshot.data?.docs[index]['imgUrl'];
+                                  book.desc =
+                                  snapshot.data?.docs[index]['description'];
+                                  book.author = snapshot.data?.docs[index]['author'];
+                                  book.fileUrl =
+                                  snapshot.data?.docs[index]['Fileurl'];
+                                  return Row(
+                                    children: [
+                                      Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey.withOpacity(0.2),
+                                              border: const Border(
+                                                  left: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.black87
+                                                  )
+                                              )
+                                          ),
+                                          padding: const EdgeInsets.only(left: 10,right: 10,),
+                                          height: 200,
+                                          width: 100,
+                                          child: BookTile(book: book, type: 'audio')),
+                                      const SizedBox(width: 10,)
+                                    ],
+                                  );
 
-                                        imageUrl: book.imgUrl.toString()),
-                                  ),
-                                  title: InkWell(
-                                    onTap: () {
-                                      showModalBottomSheet<dynamic>(
-                                          isDismissible: true,
-                                          backgroundColor:
-                                          const Color(0xff212121),
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.vertical(
-                                                top: Radius.circular(30),
-                                              )),
-                                          context: context,
-                                          builder: (context) => Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.circular(50),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets
-                                                  .symmetric(
-                                                  vertical: 30,
-                                                  horizontal: 30),
-                                              child: SingleChildScrollView(
-                                                child: Column(
-                                                  mainAxisSize:
-                                                  MainAxisSize.max,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                      children: [
-                                                        SizedBox(
-                                                          height: 100,
-                                                          width: 200,
-                                                          child: Text(
-                                                            book.title
-                                                                .toString(),
-                                                            style: const TextStyle(
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .bold,
-                                                                fontSize:
-                                                                22,
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 50,
-                                                          child: IconButton(
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            icon:
-                                                            const Icon(
-                                                              Icons.close,
-                                                              color: Colors
-                                                                  .white,
-                                                              size: 22,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Text(
-                                                      book.desc.toString(),
-                                                      style:
-                                                      const TextStyle(
-                                                          color: Colors
-                                                              .white,
-                                                          fontSize: 18),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 300,
-                                                      child: ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                            backgroundColor:
-                                                            Colors
-                                                                .blueGrey),
-                                                        onPressed:
-                                                            () async {
-                                                          await Navigator
-                                                              .pushReplacement(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder:
-                                                                  (context) =>
-                                                                  Audioplayer(booksModel: book, offline: false,)
-                                                            ),
-                                                          );
-                                                        },
-                                                        child: const Text(
-                                                          'Play',
-                                                          style: TextStyle(
-                                                              fontSize: 18),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 300,
-                                                      child: ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                            backgroundColor:
-                                                            Colors
-                                                                .blueGrey),
-                                                        onPressed: () {
-                                                          saveToLibrary(
-                                                              book.id
-                                                                  .toString(),
-                                                              book.title
-                                                                  .toString(),
-                                                              'audio',
-                                                              book.fileUrl
-                                                                  .toString(),
-                                                              book.imgUrl
-                                                                  .toString());
-                                                        },
-                                                        child: const Text(
-                                                          'Add to Library',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 18),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ));
-                                    },
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          book.title.toString(),
-                                          style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight:
-                                              FontWeight.w900,
-                                              color: Colors.white),
-                                        ),
-                                        const SizedBox(height: 5,),
-                                        Text(
-                                          "By ${book.author.toString()}",
-                                          style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight:
-                                              FontWeight.w300,
-                                              color: Colors.white),
-                                        ),
-                                        const SizedBox(height: 10,)
-                                      ],
-                                    ),
-                                  ),
-                                ));
-                          }
-                          else {
-                            return const SizedBox.shrink();
-                          }}
+                                } else {
+                                  return const SizedBox.shrink();
+                                }
+                              }),
+                        ),
+                        const SizedBox(height: 10,),
+                        const Divider(
+                          height: 5,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(height: 20,),
+                        Container(
+                          decoration:const BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: Colors.grey,
+                                      width: 2
+                                  )
+                              )
+                          ),
+                          padding: const EdgeInsets.only(right: 200),
+                          child: Text(category3,style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800
+                          ),),
+                        ),
+                        const SizedBox(height: 20,),
+                        SizedBox(
+                          height: 180,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data?.docs.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                BooksModel book = BooksModel();
+                                var document = snapshot.data?.docs[index];
+                                if (document.exists) {
+                                  book.id = snapshot.data?.docs[index].id;
+                                  book.title =
+                                  snapshot.data?.docs[index]['book_name'];
+                                  book.category =
+                                  snapshot.data?.docs[index]['category'];
+                                  book.imgUrl = snapshot.data?.docs[index]['imgUrl'];
+                                  book.desc =
+                                  snapshot.data?.docs[index]['description'];
+                                  book.author = snapshot.data?.docs[index]['author'];
+                                  book.fileUrl =
+                                  snapshot.data?.docs[index]['Fileurl'];
+                                  return Row(
+                                    children: [
+                                      Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey.withOpacity(0.2),
+                                              border: const Border(
+                                                  left: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.black87
+                                                  )
+                                              )
+                                          ),
+                                          padding: const EdgeInsets.only(left: 10,right: 10,),
+                                          height: 200,
+                                          width: 100,
+                                          child: BookTile(book: book, type: 'audio')),
+                                      const SizedBox(width: 10,)
+                                    ],
+                                  );
+
+                                } else {
+                                  return const SizedBox.shrink();
+                                }
+                              }),
+                        ),
+                        const SizedBox(height: 10,),
+                        const Divider(
+                          height: 5,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(height: 20,),
+                        Container(
+                          decoration:const BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: Colors.grey,
+                                      width: 2
+                                  )
+                              )
+                          ),
+                          padding: const EdgeInsets.only(right: 200),
+                          child: Text(category4,style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800
+                          ),),
+                        ),
+                        const SizedBox(height: 20,),
+                        SizedBox(
+                          height: 180,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data?.docs.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                BooksModel book = BooksModel();
+                                var document = snapshot.data?.docs[index];
+                                if (document.exists) {
+                                  book.id = snapshot.data?.docs[index].id;
+                                  book.title =
+                                  snapshot.data?.docs[index]['book_name'];
+                                  book.category =
+                                  snapshot.data?.docs[index]['category'];
+                                  book.imgUrl = snapshot.data?.docs[index]['imgUrl'];
+                                  book.desc =
+                                  snapshot.data?.docs[index]['description'];
+                                  book.author = snapshot.data?.docs[index]['author'];
+                                  book.fileUrl =
+                                  snapshot.data?.docs[index]['Fileurl'];
+                                  return Row(
+                                    children: [
+                                      Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey.withOpacity(0.2),
+                                              border: const Border(
+                                                  left: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.black87
+                                                  )
+                                              )
+                                          ),
+                                          padding: const EdgeInsets.only(left: 10,right: 10,),
+                                          height: 200,
+                                          width: 100,
+                                          child: BookTile(book: book, type: 'audio')),
+                                      const SizedBox(width: 10,)
+                                    ],
+                                  );
+
+                                } else {
+                                  return const SizedBox.shrink();
+                                }
+                              }),
+                        ),
+                        const SizedBox(height: 10,),
+                        const Divider(
+                          height: 5,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(height: 20,),
+                        Container(
+                          decoration:const BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: Colors.grey,
+                                      width: 2
+                                  )
+                              )
+                          ),
+                          padding: const EdgeInsets.only(right: 200),
+                          child: Text(category5,style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800
+                          ),),
+                        ),
+                        const SizedBox(height: 20,),
+                        SizedBox(
+                          height: 180,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data?.docs.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                BooksModel book = BooksModel();
+                                var document = snapshot.data?.docs[index];
+                                if (document.exists) {
+                                  book.id = snapshot.data?.docs[index].id;
+                                  book.title =
+                                  snapshot.data?.docs[index]['book_name'];
+                                  book.category =
+                                  snapshot.data?.docs[index]['category'];
+                                  book.imgUrl = snapshot.data?.docs[index]['imgUrl'];
+                                  book.desc =
+                                  snapshot.data?.docs[index]['description'];
+                                  book.author = snapshot.data?.docs[index]['author'];
+                                  book.fileUrl =
+                                  snapshot.data?.docs[index]['Fileurl'];
+                                  return Row(
+                                    children: [
+                                      Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey.withOpacity(0.2),
+                                              border: const Border(
+                                                  left: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.black87
+                                                  )
+                                              )
+                                          ),
+                                          padding: const EdgeInsets.only(left: 10,right: 10,),
+                                          height: 200,
+                                          width: 100,
+                                          child: BookTile(book: book, type: 'audio')),
+                                      const SizedBox(width: 10,)
+                                    ],
+                                  );
+
+                                } else {
+                                  return const SizedBox.shrink();
+                                }
+                              }),
+                        ),
+                      ],
                     );
                   }
                 }
@@ -325,15 +420,12 @@ class _AudiableBooksState extends State<AudiableBooks> {
     if    (await doesContainValueWithId(id)) {
       await Fluttertoast.showToast(msg: "Already Added");
     } else {
-      var ABooks=SavedBook(id, title, filePath, imgPath, type);
+      var ABooks=SavedBook(id, title, filePath, imgPath, type,true);
       await box.add(ABooks).whenComplete(() {
         Fluttertoast.showToast(msg: "Added to Library");
         setState(() {
           added = true;
         });
-      }).onError( (error,r)async{
-        await Fluttertoast.showToast(msg: error.toString());
-        throw error.toString();
       });
 
     }
@@ -362,28 +454,5 @@ class _AudiableBooksState extends State<AudiableBooks> {
     return false;
   }
 
-  void ShowCategory() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return SizedBox(
-          height: 200,
-          child: ListView.builder(
-            itemCount: categories.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(categories[index]),
-                onTap: () {
-                  setState(() {
-                    category = categories[index];
-                  });
-                  Navigator.pop(context);
-                },
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
+
 }

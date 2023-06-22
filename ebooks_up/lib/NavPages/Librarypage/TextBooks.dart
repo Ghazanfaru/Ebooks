@@ -21,7 +21,7 @@ class _TextBooksState extends State<TextBooks> {
   var bookBox;
   var _bookmark;
 
-  late final int totalCount;
+   int totalCount=0;
   @override
   void initState() {
     super.initState();
@@ -90,9 +90,8 @@ class _TextBooksState extends State<TextBooks> {
                 itemCount: totalCount,
                 itemBuilder: (context, index) {
                   var book;
-                 final checkbookobj = bookBox.getAt(index) as SavedBook;
-                  if(checkbookobj.bookType=='text' && selected=='Saved Books'){
-                 book=checkbookobj;
+                  if(selected=='Saved Books'){
+                 book=bookBox.getAt(index) as SavedBook;
                   }
                   else if(selected=='Bookmarks'){
                     if(_bookmark.isNotEmpty && index>0){
@@ -101,7 +100,7 @@ class _TextBooksState extends State<TextBooks> {
                     else{
                       Fluttertoast.showToast(msg: "No Bookmarks to show",toastLength: Toast.LENGTH_LONG);
                         selected='Saved Books';
-                        book=checkbookobj;
+                      book=bookBox.getAt(index) as SavedBook;
                     }
                   }
                  if(totalCount>0) {

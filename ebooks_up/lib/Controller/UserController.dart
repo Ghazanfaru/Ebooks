@@ -27,11 +27,13 @@ void register(UserModel userModel) async{
 }
 void login(UserModel userModel,BuildContext context)async{
  try {
-  Navigator.pushReplacementNamed(context, Home.id);
+   auth.signInWithEmailAndPassword(email: userModel.email.toString(), password: userModel.pass.toString()).whenComplete(() {
+     Navigator.pushReplacementNamed(context, Home.id);
+   });
  }on FirebaseAuthException catch(e){
    showDialog(context: context, builder: (BuildContext context){
      return AlertDialog(
-       content: Text(e.code),
+       content: Text(e.code.toString()),
        actions: [
          TextButton(onPressed: (){Navigator.pop(context);}, child: const Text("Try Again"))
        ],

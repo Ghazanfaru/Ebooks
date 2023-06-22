@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:ebooks_up/Login/ResetPage.dart';
 import 'package:flutter/material.dart';
 import 'package:ebooks_up/Controller/UserController.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Signup/SignUpPage.dart';
 import 'package:ebooks_up/model/UserModel.dart';
@@ -161,12 +162,16 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextButton(
                       child:const Text('Sign In',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400),),
                       onPressed: () {
-
                        setState(() {
                          userModel.email=email;
                          userModel.pass=pass;
                        });
-                        controller.login(userModel, context);
+                       if(userModel.email!=null && userModel.email!.isNotEmpty && userModel.pass!=null && userModel.pass!.isNotEmpty) {
+                         controller.login(userModel, context);
+                       }
+                       else {
+                         Fluttertoast.showToast(msg: "Enter your Email/Password");
+                       }
                         }
                     ),
                   ),
@@ -281,17 +286,19 @@ class _LoginPageState extends State<LoginPage> {
     SharedPreferences preferences=await SharedPreferences.getInstance();
   preferences.setString("email", email);
   preferences.setString("pass", pass);
-    setState(() {
-    });
   }
+
   void _loadUserEmailPassword() async {
 SharedPreferences preferences= await SharedPreferences.getInstance();
 String? email=preferences.getString("email");
 String? pass=preferences.getString("pass");
-userModel.email=email!;
-userModel.pass=pass!;
-setState(() {
-  controller.login(userModel, context);
-});
+if(email!.isNotEmpty && email!=null) {
+  userModel.email=email;
+  userModel.pass=pass;
+  setState(() {
+    controller.login(userModel, context);
+  });
+}
+
 }
 }

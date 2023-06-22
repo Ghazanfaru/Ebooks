@@ -17,10 +17,12 @@ class AudioBooks extends StatefulWidget {
 class _AudioBooksState extends State<AudioBooks> {
   var bookBox;
   Future<void> OpenBox() async {
-    var box = await Hive.openBox<SavedBook>(Abooks);
-    setState(() {
-      bookBox = box;
+    await Hive.openBox<SavedBook>(Abooks).then((value) {
+      setState(() {
+        bookBox = value;
+      });
     });
+
   }
 
   Future<void> deleteBookData(int index) async {
@@ -34,6 +36,7 @@ class _AudioBooksState extends State<AudioBooks> {
     // TODO: implement initState
     super.initState();
     OpenBox();
+
   }
   BooksModel bookmodel=BooksModel();
   @override

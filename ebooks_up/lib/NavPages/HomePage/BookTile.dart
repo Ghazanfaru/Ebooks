@@ -24,10 +24,24 @@ class BookTile extends StatefulWidget {
 
 class _BookTileState extends State<BookTile> {
   var box;
-
-  bool added = false;
+  bool added=false;
   Future<void> OpenBox() async {
-    box = await Hive.openBox<SavedBook>(Rbooks);
+    if(widget.type=='text'){
+    await Hive.openBox<SavedBook>(Rbooks).then((openedBox) {
+      setState(() {
+        box=openedBox;
+      });
+
+    });
+    }
+    else {
+      await Hive.openBox<SavedBook>(Abooks).then((openedBox) {
+       setState(() {
+         box=openedBox;
+       });
+      });
+    }
+
   }
 
   @override
@@ -35,11 +49,33 @@ class _BookTileState extends State<BookTile> {
     // TODO: implement initState
     super.initState();
     OpenBox();
+
+  }
+  Future<void> checkIfAdded() async {
+    bool isBookAdded = await isAdded(widget.book.id);
+    setState(() {
+      added = isBookAdded;
+    });
   }
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(
-      height: 200,
+    if(box==null){
+      return const Center(
+        child: Column(
+          children: [
+            CircularProgressIndicator(color: Colors.green,),
+            SizedBox(height: 5,),
+            Text("Loading...",style: TextStyle(
+                color: Colors.white70
+            ),)
+          ],
+        ),
+      );
+    }
+    else {
+     checkIfAdded();
+      return  SizedBox(
+      height: 250,
       child: Column(
         children: [
           InkWell(
@@ -223,37 +259,44 @@ class _BookTileState extends State<BookTile> {
                     ));
               },
 
-              child: CachedNetworkImage(imageUrl: widget.book.imgUrl.toString(),width: 80,height: 60,)),
+              child: CachedNetworkImage(imageUrl: widget.book.imgUrl.toString(),width: 100,height: 100,)),
           const SizedBox(height: 10,),
-          SizedBox(
+          Container(
+            padding: const EdgeInsets.only(left: 18),
               height: 30,
               width: 150,
-              child: Text(widget.book.title.toString(),overflow: TextOverflow.ellipsis,style: const TextStyle(
+              child: Text(widget.book.title.toString(),overflow: TextOverflow.fade,style: const TextStyle(
                 color: Colors.white70
               ),)),
-
+          const SizedBox(height: 15,),
+          if (added!) Icon(Icons.bookmark_added_rounded,color: Colors.green.shade200,) else Icon(Icons.bookmark_add_rounded,color: Colors.green.shade200,)
         ],
       ),
     );
+    }
+
   }
 
   Future<void> saveToLibrary(String id, String title, String type,
       String fileUrl, String imgUrl) async {
+    Fluttertoast.showToast(msg: "Adding to Library",toastLength: Toast.LENGTH_LONG);
     String imgPath = await downloadAndSaveFile(imgUrl, title);
     String filePath = await downloadAndSaveFile(fileUrl, title);
     if (await doesContainValueWithId(id)) {
       await Fluttertoast.showToast(msg: "Already Added");
     } else {
-      var rBook = await SavedBook(id, title, filePath, imgPath, type);
-      await box.add(rBook).whenComplete(() {
-        Fluttertoast.showToast(msg: "Added to Library");
-        setState(() {
-          added = true;
+      if(type=='text') {
+        var rBook = SavedBook(id, title, filePath, imgPath, type, true);
+        await box.add(rBook).whenComplete(() {
+          Fluttertoast.showToast(msg: "Added to Library");
         });
-      }).onError((error, r) async {
-        await Fluttertoast.showToast(msg: error.toString());
-        throw error.toString();
-      });
+      }
+      else {
+        var ABook = SavedBook(id, title, filePath, imgPath, type,true);
+        await box.add(ABook).whenComplete(() {
+          Fluttertoast.showToast(msg: "Added to Library");
+        });
+      }
     }
   }
 
@@ -269,14 +312,50 @@ class _BookTileState extends State<BookTile> {
   }
 
   Future<bool> doesContainValueWithId(dynamic id) async {
-    if (box != null) {
-      for (var item in box.values) {
-        if (item.bookId == id) {
-          return true;
+    print(box);
+    if(widget.type=='text') {
+      if (box != null) {
+        for (var item in box.values) {
+          if (item.bookId == id) {
+            return true;
+          }
         }
       }
     }
+    else
+     {
+       if (box != null) {
+         for (var item in box.values) {
+           if (item.bookId == id) {
+             return true;
+           }
+         }
+       }
+     }
+    return false;
+  }
 
+  Future<bool> isAdded(dynamic id) async{
+    if(widget.type=='text') {
+      if (box != null) {
+        for (int i = 0; i < box.length; i++) {
+          if (box.getAt(i).bookId ==id) {
+          return true;
+          }
+        }
+      }
+    }
+    else
+    {
+      if (box != null) {
+        for (int i = 0; i < box.length; i++) {
+          if (box.getAt(i).bookId==id) {
+              return true;
+          }
+        }
+      }
+    }
     return false;
   }
 }
+

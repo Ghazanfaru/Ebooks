@@ -17,5 +17,8 @@ class SavedBook extends HiveObject {
   @HiveField(4)
   String bookType;
 
-  SavedBook(this.bookId, this.title, this.fileUrl, this.imgUrl, this.bookType);
+  @HiveField(5)
+  bool added;
+
+  SavedBook(this.bookId, this.title, this.fileUrl, this.imgUrl, this.bookType,this.added);
 }
