@@ -18,10 +18,10 @@ class _SearchedbykeyState extends State<Searchedbykey> {
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
-      backgroundColor: const Color(0xffE2E5DE),
+      backgroundColor: const Color(0xff212121),
       appBar: AppBar(
         title: const Text("Explore Books"),
-        backgroundColor:  const Color(0xff005C29),
+        backgroundColor:   const Color(0xff1db954),
       ),
       body: StreamBuilder<QuerySnapshot<Map<String,dynamic>>>(
           stream: store.collection('text').where('keywords', arrayContainsAny: widget.query.split(' ')).snapshots(),

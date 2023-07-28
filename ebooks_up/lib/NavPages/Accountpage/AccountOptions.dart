@@ -15,7 +15,7 @@ class AccountOptions extends StatelessWidget {
            margin: const EdgeInsets.only(left: 10,right: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
-              color: const Color(0xffb3b3b3)
+              color: Colors.grey
             ),
 
             child: Row(

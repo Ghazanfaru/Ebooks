@@ -94,7 +94,7 @@ class _TextBooksState extends State<TextBooks> {
                  book=bookBox.getAt(index) as SavedBook;
                   }
                   else if(selected=='Bookmarks'){
-                    if(_bookmark.isNotEmpty && index>0){
+                    if(_bookmark.isNotEmpty && index>=0){
                     book=_bookmark.getAt(index) as Bookmark;
                     }
                     else{

@@ -76,6 +76,7 @@ class _BookTileState extends State<BookTile> {
      checkIfAdded();
       return  SizedBox(
       height: 250,
+
       child: Column(
         children: [
           InkWell(
@@ -144,6 +145,39 @@ class _BookTileState extends State<BookTile> {
                                   ),
                                 ],
                               ),
+                              const SizedBox(height: 10,),
+                              CachedNetworkImage(imageUrl: widget.book.imgUrl.toString(),
+                                height: 100,
+                                width: 100,
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              Row(
+                                children: [
+                                  const Text("By",style: TextStyle(
+                                      color: Colors
+                                          .white,
+                                      fontSize: 18
+                                  ),
+                                  ),
+                                  const SizedBox(width: 10,),
+                                  Text(widget.book.author,
+                                    style:const TextStyle(
+                                        color: Colors
+                                            .blueGrey,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 100),
+                                child: Rating(type:widget.type, documentID: widget.book.id.toString(), oldRating:widget.book.rating??0),
+                              ),
+                              const SizedBox(height: 20,),
                               Text(
                                 widget.book.desc.toString(),
                                 style:
@@ -153,9 +187,8 @@ class _BookTileState extends State<BookTile> {
                                     fontSize: 18),
                               ),
                               const SizedBox(
-                                height: 10,
+                                height: 40,
                               ),
-                              Rating(type:widget.type, documentID: widget.book.id.toString(), oldRating:widget.book.rating??0),
                               SizedBox(
                                 width: 300,
                                 child: ElevatedButton(
@@ -173,7 +206,7 @@ class _BookTileState extends State<BookTile> {
                                       MaterialPageRoute(
                                           builder:
                                               (context) =>
-                                              Audioplayer(booksModel: widget.book,offline: false,)
+                                              Audioplayer(offline: false, title: widget.book.title.toString(),imgUrl: widget.book.imgUrl.toString(),fileUrl: widget.book.fileUrl.toString(),)
                                       ),
                                     );
                                     }
@@ -268,7 +301,7 @@ class _BookTileState extends State<BookTile> {
               child: Text(widget.book.title.toString(),overflow: TextOverflow.fade,style: const TextStyle(
                 color: Colors.white70
               ),)),
-          const SizedBox(height: 15,),
+          const SizedBox(width: 20,),
           if (added!) Icon(Icons.bookmark_added_rounded,color: Colors.green.shade200,) else Icon(Icons.bookmark_add_rounded,color: Colors.green.shade200,)
         ],
       ),

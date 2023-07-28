@@ -266,8 +266,10 @@ class _TopChartsState extends State<TopCharts> {
                                                       MaterialPageRoute(
                                                           builder: (context) =>
                                                               Audioplayer(
-                                                                offline: false,
-                                                                  booksModel: book)),
+                                                                title: book.title.toString(),
+                                                                fileUrl: book.fileUrl.toString(),
+                                                                imgUrl: book.imgUrl.toString(),
+                                                                offline: false,)),
                                                     );
                                                   } else {
                                                     await Navigator

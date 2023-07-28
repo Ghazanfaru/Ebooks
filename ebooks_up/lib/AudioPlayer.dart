@@ -1,13 +1,20 @@
+import 'dart:io';
 import 'dart:ui';
-import 'package:ebooks_up/model/BooksModel.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class Audioplayer extends StatefulWidget {
-  BooksModel booksModel = BooksModel();
-
+  String title;
+  String imgUrl;
+  String fileUrl;
   bool offline;
-  Audioplayer({Key? key, required this.booksModel,required this.offline}) : super(key: key);
+  Audioplayer(
+      {Key? key,
+      required this.offline,
+      required this.title,
+      required this.imgUrl,
+      required this.fileUrl})
+      : super(key: key);
 
   @override
   State<Audioplayer> createState() => _AudioplayerState();
@@ -26,30 +33,38 @@ class _AudioplayerState extends State<Audioplayer> {
   }
 
   Future<void> initplayer() async {
-    if(widget.offline){
-      player.setSourceDeviceFile(widget.booksModel.fileUrl.toString());
-    }
-    else{
-    await player.setSourceUrl(widget.booksModel.fileUrl.toString());
+    if (widget.offline) {
+      player.setSourceDeviceFile(widget.fileUrl);
+    } else {
+      await player.setSourceUrl(widget.fileUrl);
     }
     duration = await player.getDuration();
+  }
 
-
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(widget.offline);
     return Scaffold(
       body: Stack(
         children: [
           Container(
             constraints: const BoxConstraints.expand(),
             decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(
-                      widget.booksModel.imgUrl.toString(),
-                    ),
-                    fit: BoxFit.cover)),
+                image: widget.offline
+                    ? DecorationImage(
+                    image: MemoryImage(File(widget.imgUrl).readAsBytesSync()),
+                        fit: BoxFit.cover)
+                    : DecorationImage(
+                        image: NetworkImage(
+                          widget.imgUrl,
+                        ),
+                        fit: BoxFit.cover)),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 28, sigmaY: 28),
               child: Container(
@@ -63,21 +78,23 @@ class _AudioplayerState extends State<Audioplayer> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(30.0),
-                child: Image.network(
-                  widget.booksModel.imgUrl.toString(),
-                  width: 250.0,
-                ),
+                child: widget.offline
+                    ? Image.memory(File(widget.imgUrl).readAsBytesSync(),width: 250.0,)
+                    : Image.network(
+                        widget.imgUrl,
+                        width: 250.0,
+                      ),
               ),
               const SizedBox(
                 height: 40,
               ),
               Text(
-                widget.booksModel.title.toString(),
+                widget.title,
                 style: const TextStyle(
                     color: Colors.white, fontSize: 35.0, letterSpacing: 5),
               ),
               const SizedBox(
-                height: 30.0,
+                height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +109,7 @@ class _AudioplayerState extends State<Audioplayer> {
                         value = v;
                       });
                     },
-                    min: 0.0,
+                    min: 10.0,
                     max: duration!.inSeconds.toDouble(),
                     value: value,
                     onChangeEnd: (newValue) async {
@@ -119,7 +136,7 @@ class _AudioplayerState extends State<Audioplayer> {
                 height: 60.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(60.0),
-                  color: Colors.green.withOpacity(0.5),
+                  color: Colors.black,
                   border: Border.all(color: Colors.black45),
                 ),
                 child: InkWell(
@@ -146,9 +163,9 @@ class _AudioplayerState extends State<Audioplayer> {
                   },
                   child: Icon(
                     isPlaying
-                        ? Icons.pause_circle_outline
-                        : Icons.play_arrow_outlined,
-                    color: Colors.black,
+                        ? Icons.pause_circle
+                        : Icons.play_arrow,
+                    color: Colors.white,
                     size: 40,
                   ),
                 ),

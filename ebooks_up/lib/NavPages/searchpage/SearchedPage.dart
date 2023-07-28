@@ -8,6 +8,7 @@ class Searched extends StatefulWidget {
 
   static String id='SearchedPage';
 
+
    Searched({Key? key,required this.category}) : super(key: key);
 
   @override
@@ -57,8 +58,11 @@ class _SearchedState extends State<Searched> {
                                     Text(book.title.toString(),style:const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
 
                                   ],
-                                )),onTap: (){
+                                )),
+
+                                    onTap: (){
                                   showModalBottomSheet<dynamic>(isDismissible: true,
+                                      backgroundColor: const Color(0xff212121),
                                       shape: const RoundedRectangleBorder(
                                           borderRadius: BorderRadius.vertical(
                                             top: Radius.circular(30),
@@ -72,7 +76,7 @@ class _SearchedState extends State<Searched> {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text(book.title.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
+                                                  Text(book.title.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color: Colors.white),),
                                                   IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.close,size: 22,),),
 
                                                 ],),
@@ -90,6 +94,9 @@ class _SearchedState extends State<Searched> {
                                                 width: 300,
                                                 height: 40,
                                                 child: ElevatedButton(
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor: Colors.blueGrey
+                                                  ),
                                                   onPressed: (){
                                                     Navigator.push(
                                                       context,
@@ -107,34 +114,15 @@ class _SearchedState extends State<Searched> {
                                                 ),
                                               ),
                                               const SizedBox(height: 10,),
-
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.lightBlue,
-                                                  borderRadius: BorderRadius.circular(5),
-                                                ),
-                                                width: 300,
-                                                height: 40,
-                                                child: const ElevatedButton(
-                                                  onPressed: null,
-                                                  child: Text(
-                                                    'Download',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 18),
-                                                  ),
-                                                ),
-                                              ),
-
                                             ],
                                           ),
                                         ),
                                       ));
                                 }),
                                 const SizedBox(height: 2,),
-                                Text(widget.category,style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w400),),
+                                Text(widget.category,style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w400,color: Colors.white),),
                                 const SizedBox(height: 2,),
-                                Text(book.author,style: const TextStyle(fontSize: 11,fontWeight: FontWeight.w300),),
+                                Text(book.author,style: const TextStyle(fontSize: 11,fontWeight: FontWeight.w300,color: Colors.white),),
                                 const SizedBox(height: 2,),
                               ],
                             ),

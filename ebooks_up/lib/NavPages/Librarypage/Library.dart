@@ -14,10 +14,20 @@ class Library extends StatefulWidget {
   State<Library> createState() => _SavedState();
 }
 
-
 class _SavedState extends State<Library> {
 
+@override
+void initState() {
+  // TODO: implement initState
+    super.initState();
+    OpenBox();
+  }
 
+  void OpenBox(){
+  Hive.openBox<SavedBook>(Rbooks);
+  Hive.openBox<SavedBook>(Abooks);
+  Hive.openBox<Bookmark>(RBM);
+  }
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

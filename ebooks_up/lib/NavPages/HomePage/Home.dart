@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
           items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home),label:'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.show_chart_sharp),label:'Top Charts'),
-          BottomNavigationBarItem(icon: Icon(Icons.search),label:'Search',),
+          BottomNavigationBarItem(icon: Icon(Icons.travel_explore),label:'Search',),
             BottomNavigationBarItem(icon: Icon(Icons.local_library_outlined),label:'Library',),
             BottomNavigationBarItem(icon: Icon(Icons.person),label:'Account',),
           ],

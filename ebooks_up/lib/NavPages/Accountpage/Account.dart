@@ -1,8 +1,11 @@
 import 'package:ebooks_up/UpdateProfile.dart';
+import 'package:ebooks_up/main.dart';
+import 'package:ebooks_up/model/SavedBook.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'AccountOptions.dart';
-import 'Options/Downloads.dart';
-import 'Options/NotificationSettings.dart';
+import 'Options/Feedback.dart';
+import 'Options/NarratorSetting.dart';
 import 'package:ebooks_up/Controller/UserController.dart';
 import 'package:ebooks_up/Login/LoginPage.dart';
 import 'package:ebooks_up/model/UserModel.dart';
@@ -69,20 +72,22 @@ class Account extends StatelessWidget {
               },
             ),
             AccountOptions(
-              name: 'Downloads',
+              name: 'Feedback',
               onpressed: () {
-                Navigator.pushNamed(context, Downloads.id);
+                Navigator.pushNamed(context, Feedbacks.id);
               },
             ),
             AccountOptions(
-                name: 'Notification Settings',
+                name: 'Narrator Settings',
                 onpressed: () {
-                  Navigator.pushNamed(context, NotificationSettings.id);
+                  Navigator.pushNamed(context, NarratorSettingsScreen.id);
                 }),
             AccountOptions(
                 name: 'Log Out',
                 onpressed: () {
                   controller.clearPreferences();
+                  Hive.deleteBoxFromDisk(Rbooks);
+                  Hive.deleteBoxFromDisk(Abooks);
                   controller.logout();
                   Navigator.pushReplacementNamed(context, LoginPage.id);
                 }),

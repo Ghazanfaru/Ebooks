@@ -61,16 +61,10 @@ class _AudioBooksState extends State<AudioBooks> {
               child: ListView.separated(
                   itemBuilder: (context,index){
                     var book;
-                    if(index>0){
-                    final checkbook=bookBox.getAt(index) as SavedBook;
-                    if(checkbook.bookType=='audio'){
-                      book=checkbook;
-                      bookmodel.title=book.title;
-                      bookmodel.fileUrl=book.fileUrl;
-                      bookmodel.imgUrl=book.imgUrl;
-                      if (kDebugMode) {
-                        print("title: ${bookmodel.title}");
-                      }
+                    if(bookBox.length>0){
+                      final checkbook=bookBox.getAt(index) as SavedBook;
+                      if(checkbook.bookType=='audio'){
+                        book=checkbook;
                     }
                     }
                   if(bookBox.length>0){
@@ -81,14 +75,14 @@ class _AudioBooksState extends State<AudioBooks> {
                         )
                       ),
                       child: ListTile(
-                        title: Text(bookmodel.title.toString()),
+                        title: Text(book.title),
                         onLongPress: () {
                           showDialog(
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
                                   content: Text(
-                                      "Do you want to remove ${bookmodel.title.toString()} from library?"),
+                                      "Do you want to remove ${book.title} from library?"),
                                   actions: [
                                     TextButton(
                                         onPressed: () {
@@ -119,8 +113,11 @@ class _AudioBooksState extends State<AudioBooks> {
                             MaterialPageRoute(
                               builder: (context) =>
                                   Audioplayer(
+                                    title: book.title,
+                                    imgUrl: book.imgUrl,
+                                    fileUrl: book.fileUrl,
                                     offline: true,
-                                   booksModel:bookmodel),
+                                   ),
                             ),
                           );
                         },

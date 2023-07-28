@@ -43,7 +43,11 @@ class _PDFViewerState extends State<PDFViewer> {
   bool play = false;
   var box;
   Future<void> openbox() async {
-    box = await Hive.openBox<Bookmark>(RBM);
+    await Hive.openBox<Bookmark>(RBM).then((value) {
+     setState(() {
+       box=value;
+     });
+    });
   }
 
   @override
@@ -53,6 +57,7 @@ class _PDFViewerState extends State<PDFViewer> {
     openbox();
     jumpTobookmark();
   }
+
   void  jumpTobookmark(){
   if(widget.isBookmark){
   pdfViewerController.jumpToPage(widget.pageNo);
@@ -146,6 +151,7 @@ class _PDFViewerState extends State<PDFViewer> {
 
     if (play) {
       flutterTts.speak(text!);
+      HighlightSpeech();
     } else {
       flutterTts.pause();
     }
@@ -167,15 +173,19 @@ class _PDFViewerState extends State<PDFViewer> {
 
   Future<void> HighlightSpeech() async {
     flutterTts.setProgressHandler((text, start, end, word) {
-      setState(() {});
+     Fluttertoast.showToast(msg: word);
     });
   }
 
   Future<void> saveTobookmark(
       int currentPage, String title, String fileUrl) async {
+    Fluttertoast.showToast(msg: 'Adding BookMark');
     String filePath = await downloadAndSaveFile(fileUrl, title);
+  print("In Save To Bookmark after downloading book file and image");
     var bookmark =
         Bookmark(title: title, currentPage: currentPage, fileUrl: filePath,added: true);
+  print(bookmark.title);
+
     box.add(bookmark).whenComplete(() {
       Fluttertoast.showToast(msg: "BookMark Added");
       setState(() {

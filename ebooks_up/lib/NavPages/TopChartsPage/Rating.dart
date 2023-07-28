@@ -63,30 +63,45 @@ void initState() {
 
     return InkWell(
       onTap: (){
-        showCupertinoDialog(context: context, builder: (context)=> AlertDialog(
-          content: Column(
-            children: [
-              TextField(
-                controller: feedbackController,
-                decoration: const InputDecoration(
-                  labelText: 'Review',
+        showDialog(context: context, builder: (context)=> AlertDialog(
+          backgroundColor: const Color(0xff212121),
+          content: Container(
+            height: 150,
+            width: 300,
+            child: Column(
+              children: [
+                TextField(
+                  controller: feedbackController,
+                  decoration: const InputDecoration(
+                    labelText: 'Review',
+                    labelStyle: TextStyle(color: Colors.green),
+                    focusColor: Colors.green,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xff1db954)),
+                    ),
+                  ),
                 ),
-              ),
-          RatingBar.builder(
-            initialRating: 0,
-            minRating: 1,
-            maxRating: 5,
-            itemCount: 5,
-            itemBuilder: (context, _) => const Icon(
-              Icons.star,
-              color: Colors.amber,
+            const SizedBox(
+              height: 30,
             ),
-            onRatingUpdate: (rating) {
-              selectedRating = rating.toInt();
-            },)
-            ],
+            RatingBar.builder(
+              initialRating: 0,
+              minRating: 1,
+              maxRating: 5,
+              itemCount: 5,
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              onRatingUpdate: (rating) {
+                selectedRating = rating.toInt();
+              },)
+              ],
+            ),
           ),
           actions: [
+            TextButton(onPressed: () => Navigator.pop(context),
+                child: const Text("Cancel",style: TextStyle(color: Colors.green),)),
             TextButton(onPressed: ()async{
 
               await setRating(widget.type, widget.documentID, selectedRating,feedbackController.text);
@@ -101,7 +116,7 @@ void initState() {
                   fontSize: 16.0
               );
 
-            }, child: const Text("Submit"))
+            }, child: const Text("Submit",style: TextStyle(color: Colors.green),))
           ],
         ));
       },
@@ -132,7 +147,7 @@ void initState() {
             color: _myColorFive,
             size: 17,
           ),
-          SizedBox(width: 5,),
+          const SizedBox(width: 5,),
           Text(rating.toString(),style: const TextStyle(
               color: Colors.white),)
         ],
